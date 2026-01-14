@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Events;
 
-public class CustomEvents 
+public class CustomEvents
 {
     //Generales
     public UnityEvent OnLanguageChanged = new UnityEvent();

@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public static class Main 
+public static class Main
 {
-    public static Il18n Il18n;
+    // public static Il18n Il18n;
     public static CustomEvents CustomEvents;
     public static Config Config;
     public static Player Player;
@@ -13,8 +9,8 @@ public static class Main
     public static void Start()
     {
         CustomEvents = new CustomEvents();
-        Player= new Player();
+        Player = new Player();
     }
 
-   
+
 }
