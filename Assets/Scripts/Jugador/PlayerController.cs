@@ -21,19 +21,22 @@ public class PlayerController : MonoBehaviour
     // --- Salto ---
     [SerializeField] private float _jumpForce = 10f;          // Fuerza inicial del salto
     [SerializeField] private float _shortJumpMultiplier = 3f; // Reduce salto si sueltas el botón
-    [SerializeField] private float fallMultiplier = 2f;       // Aumenta velocidad de caída
-    private bool jumpHeld = false;                            // Si el botón de salto está mantenido
+    [SerializeField] private float _fallMultiplier = 2f;       //Velocidad de caída
+    private bool jumpHeld = false;                            // para ver si el botón de salto está mantenido
 
     // --- Ground Check ---
-    [SerializeField] private Transform groundCheck;      // Punto desde donde lanzamos el raycast
-    [SerializeField] private float groundRayLength = 0.2f;
-    [SerializeField] private LayerMask groundLayer;      // Capas que cuentan como suelo
-    private bool isGrounded = false;                     // Si el jugador está tocando el suelo
+    [SerializeField] private Transform _groundCheck;      // Punto desde donde lanzamos el raycast
+    [SerializeField] private float _groundRayLength = 0.2f;
+    [SerializeField] private LayerMask _groundLayer;      // Capas que cuentan como suelo
+    private bool isGrounded = false;                     // para ver si el jugador está tocando el suelo
 
     #endregion
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+
+        /*InputManager.Actions.Mario.Jump.performed+= HandleJump;*/ //llamamos al input manager,y nos suscribimos al metodo de saltar
 
         // Suscripción a eventos del InputManager
         InputManager.Instance.OnMove.AddListener(Move);
@@ -44,7 +47,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         CheckGround();       // Detecta si está en el suelo
-        ApplyJumpPhysics();  // Aplica física del salto variable
+        ApplyJumpPhysics();  // Aplica física del salto 
     }
 
     #region MOVIMIENTO
@@ -55,7 +58,7 @@ public class PlayerController : MonoBehaviour
         _movementDirection = direction;
     }
 
-    private void FixedUpdate()
+    private void FixedUpdate() //como el jugador se mueve con fuerzas(gravedad etc) se usa el fuxed Update (no depende de los frames)
     {
         // Velocidad actual y objetivo
         float currentSpeed = _rb.velocity.x;
@@ -112,7 +115,7 @@ public class PlayerController : MonoBehaviour
         // Caída más rápida
         if (_rb.velocity.y < 0)
         {
-            _rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            _rb.velocity += Vector2.up * Physics2D.gravity.y * (_fallMultiplier - 1) * Time.deltaTime;
         }
 
         // Salto más corto si sueltas el botón
@@ -128,13 +131,14 @@ public class PlayerController : MonoBehaviour
     {
         // Raycast hacia abajo para detectar suelo
         RaycastHit2D hit = Physics2D.Raycast(
-            groundCheck.position,
+            _groundCheck.position,
             Vector2.down,
-            groundRayLength,
-            groundLayer
+            _groundRayLength,
+            _groundLayer
         );
 
-        Debug.DrawRay(groundCheck.position, Vector2.down * groundRayLength, Color.red);
+
+        Debug.DrawRay(_groundCheck.position, Vector2.down * _groundRayLength, Color.red);
 
         isGrounded = hit.collider != null;
     }
