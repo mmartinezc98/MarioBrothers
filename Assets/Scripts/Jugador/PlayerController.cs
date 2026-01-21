@@ -1,30 +1,34 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D _rb;
+    // private Animator _animator;
+    // private SpriteRenderer _spriteRendered;
 
     #region VARIABLES
 
-    // --- Movimiento ---
+    //  Movimiento
     private Vector2 _movementDirection;                 // Dirección del input  
     [SerializeField] private float _moveSpeed = 4f;     // Velocidad base caminando
     [SerializeField] private float _acceleration = 20f; // Aceleración en suelo
     [SerializeField] private float _deceleration = 30f; // Frenado en suelo
     [SerializeField] private float _maxSpeed = 5f;      // Velocidad máxima horizontal
 
-    // --- Carrera ---
+    //  Carrera 
     [SerializeField] private float _runSpeed = 6f;      // Velocidad máxima corriendo
     private bool running = false;                       // Si el jugador mantiene el botón de correr
 
-    // --- Salto ---
+    //  Salto 
     [SerializeField] private float _jumpForce = 10f;          // Fuerza inicial del salto
     [SerializeField] private float _shortJumpMultiplier = 3f; // Reduce salto si sueltas el botón
     [SerializeField] private float _fallMultiplier = 2f;       //Velocidad de caída
     private bool jumpHeld = false;                            // para ver si el botón de salto está mantenido
 
-    // --- Ground Check ---
+    //  Ground Check 
     [SerializeField] private Transform _groundCheck;      // Punto desde donde lanzamos el raycast
     [SerializeField] private float _groundRayLength = 0.2f;
     [SerializeField] private LayerMask _groundLayer;      // Capas que cuentan como suelo
@@ -34,15 +38,15 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody2D>();
+        this._rb = GetComponent<Rigidbody2D>();
+        //_animator = GetComponent<Animator>();
 
-        /*InputManager.Actions.Mario.Jump.performed+= HandleJump;*/ //llamamos al input manager,y nos suscribimos al metodo de saltar
+        //RUN
+        InputManager2.InputSystemActions.Player.Run.started += Run;
 
-        // Suscripción a eventos del InputManager
-        InputManager.Instance.OnMove.AddListener(Move);
-        InputManager.Instance.OnJumpPressed.AddListener(JumpPressed);
-        InputManager.Instance.OnJumpReleased.AddListener(JumpReleased);
-        InputManager.Instance.OnRun.AddListener(Run);
+        //JUMP
+        InputManager2.InputSystemActions.Player.Jump.started += JumpPressed;
+        InputManager2.InputSystemActions.Player.Jump.canceled += JumpReleased;
     }
     private void Update()
     {
@@ -51,15 +55,11 @@ public class PlayerController : MonoBehaviour
     }
 
     #region MOVIMIENTO
-
-    // Recibe el input del InputManager
-    public void Move(Vector2 direction)
-    {
-        _movementDirection = direction;
-    }
+    
 
     private void FixedUpdate() //como el jugador se mueve con fuerzas(gravedad etc) se usa el fuxed Update (no depende de los frames)
     {
+        _movementDirection = InputManager2.InputSystemActions.Player.Movement.ReadValue<Vector2>();
         // Velocidad actual y objetivo
         float currentSpeed = _rb.velocity.x;
         float baseSpeed = running ? _runSpeed : _moveSpeed;   // Usar el _runSpeed si se corre
@@ -94,19 +94,30 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region SALTO
-    private void JumpPressed()
+    private void JumpPressed(InputAction.CallbackContext callbackContext)
     {
         // Para saltar solo si estas tocando el suelo
-        if (isGrounded)
+        if (isGrounded && callbackContext.phase == InputActionPhase.Started)
         {
             jumpHeld = true;
             _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
         }
+        /*else
+        {
+            if (callbackContext.phase == InputActionPhase.Canceled)
+            {
+                jumpHeld = false;
+            }
+        }*/
     }
 
-    private void JumpReleased()
+    private void JumpReleased(InputAction.CallbackContext callbackContext)
     {
-        jumpHeld = false;
+        if (callbackContext.phase == InputActionPhase.Canceled)
+        {
+            jumpHeld = false;
+        }
+        
     }
 
     // Salto variable
@@ -130,24 +141,26 @@ public class PlayerController : MonoBehaviour
     private void CheckGround()
     {
         // Raycast hacia abajo para detectar suelo
-        RaycastHit2D hit = Physics2D.Raycast(
-            _groundCheck.position,
-            Vector2.down,
-            _groundRayLength,
-            _groundLayer
-        );
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, _groundRayLength, _groundLayer);
 
 
-        Debug.DrawRay(_groundCheck.position, Vector2.down * _groundRayLength, Color.red);
+        Debug.DrawRay(transform.position, Vector2.down * _groundRayLength, Color.red);
 
         isGrounded = hit.collider != null;
     }
     #endregion
 
     #region RUN
-    private void Run(bool isRunning)
+    private void Run(InputAction.CallbackContext callbackContext)
     {
-        running = isRunning;
+        if (callbackContext.phase == InputActionPhase.Started)
+        {
+            running = true;
+        }else if(callbackContext.phase == InputActionPhase.Canceled)
+        {
+            running=false;
+        }
+        
     }
     #endregion
 }

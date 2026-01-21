@@ -1,19 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputManager2 //SINGLETON DEL PLAYER INPUT PARA ASEGURAR QUE SOOLO HAYA UNO
 {
-    private static InputSystem _inputSystem; //PlayerInpus es el nombre de la clase que genera unity
+    private static PlayerInputActions _inputSystem; //InputSystem es el nombre de la clase que genera unity
 
-    public static InputSystem InputSystemActions
+    public static PlayerInputActions InputSystemActions
     {
         get
         {
-            if (InputSystemActions == null)
+            if (_inputSystem == null)
             {
-                _inputSystem = new InputSystem();
+                _inputSystem = new PlayerInputActions();
                 _inputSystem.Player.Enable();
             }
             return _inputSystem;

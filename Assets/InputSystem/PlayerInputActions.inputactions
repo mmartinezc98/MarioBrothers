@@ -1,6 +1,6 @@
 {
     "version": 1,
-    "name": "InputSystem",
+    "name": "PlayerInputActions",
     "maps": [
         {
             "name": "Player",
@@ -21,7 +21,7 @@
                     "id": "7897f246-501c-4575-91b6-4723357f9463",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "Press(behavior=2)",
                     "initialStateCheck": false
                 },
                 {
