@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
 
         //RUN
         InputManager2.InputSystemActions.Player.Run.started += Run;
+        InputManager2.InputSystemActions.Player.Run.canceled += Run;
 
         //JUMP
         InputManager2.InputSystemActions.Player.Jump.started += JumpPressed;
