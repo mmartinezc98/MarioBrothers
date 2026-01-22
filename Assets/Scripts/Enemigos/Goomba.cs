@@ -1,14 +1,12 @@
-public class Goomba : Enemies
-{
-    // Start is called before the first frame update
-    void Start()
-    {
+using UnityEngine;
 
-    }
-
-    // Update is called once per frame
-    void Update()
+public class Goomba : Enemies 
+{  
+    public override void OnStomped()
     {
+        //TODO: ANIMACION SPRITES
+        GetComponent<Collider2D>().enabled = false;
+        Destroy(gameObject, 0.1f);
 
     }
 }
