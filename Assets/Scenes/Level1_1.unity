@@ -34837,6 +34837,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goomba
       objectReference: {fileID: 0}
+    - target: {fileID: 8568049005159697549, guid: a84ec9fe8b1cdb64d8caa92c07fee113, type: 3}
+      propertyPath: _deadStanding
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -34892,7 +34896,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2349451546982488625, guid: d073084dd8a9a3c4dbd72e26dfff5d7d, type: 3}
       propertyPath: _minDriftVelocity
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2888975225391966157, guid: d073084dd8a9a3c4dbd72e26dfff5d7d, type: 3}
       propertyPath: m_Name
