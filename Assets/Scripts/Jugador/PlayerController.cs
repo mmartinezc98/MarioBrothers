@@ -2,166 +2,141 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Animator))]
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D _rb;
-    // private Animator _animator;
-    // private SpriteRenderer _spriteRendered;
 
     #region VARIABLES
 
-    //  Movimiento
-    private Vector2 _movementDirection;                 // Dirección del input  
-    [SerializeField] private float _moveSpeed = 4f;     // Velocidad base caminando
-    [SerializeField] private float _acceleration = 20f; // Aceleración en suelo
-    [SerializeField] private float _deceleration = 30f; // Frenado en suelo
-    [SerializeField] private float _maxSpeed = 5f;      // Velocidad máxima horizontal
+    [Header("Movimiento")]
+    [SerializeField] private float _moveSpeed = 6f;
+    [SerializeField] private float _runSpeed = 9f;
+    [SerializeField] private float _acceleration = 12f;
+    [SerializeField] private float _deceleration = 12f;
+    private Vector2 _movementDirection;
+    private bool _isRunning = false;
 
-    //  Carrera 
-    [SerializeField] private float _runSpeed = 6f;      // Velocidad máxima corriendo
-    private bool running = false;                       // Si el jugador mantiene el botón de correr
+    [Header("Salto")]
+    [SerializeField] private float _jumpForce = 12f;
+    [SerializeField] private float _fallMultiplier = 3f;
+    [SerializeField] private float _shortJumpMultiplier = 4f;
+    private bool _jumpHeld = false;
 
-    //  Salto 
-    [SerializeField] private float _jumpForce = 10f;          // Fuerza inicial del salto
-    [SerializeField] private float _shortJumpMultiplier = 3f; // Reduce salto si sueltas el botón
-    [SerializeField] private float _fallMultiplier = 2f;       //Velocidad de caída
-    private bool jumpHeld = false;                            // para ver si el botón de salto está mantenido
-
-    //  Ground Check 
-    [SerializeField] private Transform _groundCheck;      // Punto desde donde lanzamos el raycast
+    [Header("Raycast")]
     [SerializeField] private float _groundRayLength = 0.2f;
-    [SerializeField] private LayerMask _groundLayer;      // Capas que cuentan como suelo
-    private bool isGrounded = false;                     // para ver si el jugador está tocando el suelo
+    [SerializeField] private float _groundRayOffset = 0.3f;
+    [SerializeField] private LayerMask _groundLayer;
+    private bool _isGrounded;
 
+    #endregion
+
+    #region ANIMACIONES
+
+    // Estas propiedades permiten que otros scripts lean el estado pero no lo modifiquen
+    public bool IsGrounded => _isGrounded;
+    public bool IsRunning => _isRunning;
+    public Vector2 MovementDirection => _movementDirection;
     #endregion
 
     private void Awake()
     {
-        this._rb = GetComponent<Rigidbody2D>();
-        //_animator = GetComponent<Animator>();
-
-        //RUN
-        InputManager2.InputSystemActions.Player.Run.started += Run;
-        InputManager2.InputSystemActions.Player.Run.canceled += Run;
-
-        //JUMP
-        InputManager2.InputSystemActions.Player.Jump.started += JumpPressed;
-        InputManager2.InputSystemActions.Player.Jump.canceled += JumpReleased;
+        _rb = GetComponent<Rigidbody2D>();
     }
+
+
+    //SUSCRIPCION A EVENTOS
+    private void OnEnable()
+    {
+        InputManager2.InputSystemActions.Player.Run.started += OnRun;
+        InputManager2.InputSystemActions.Player.Run.canceled += OnRun;
+        InputManager2.InputSystemActions.Player.Jump.started += OnJumpPressed;
+        InputManager2.InputSystemActions.Player.Jump.canceled += OnJumpReleased;
+        InputManager2.InputSystemActions.Player.Enable();
+    }
+
+
+    //DESUSCRIPCION A EVENTOS
+    private void OnDisable()
+    {
+        InputManager2.InputSystemActions.Player.Run.started -= OnRun;
+        InputManager2.InputSystemActions.Player.Run.canceled -= OnRun;
+        InputManager2.InputSystemActions.Player.Jump.started -= OnJumpPressed;
+        InputManager2.InputSystemActions.Player.Jump.canceled -= OnJumpReleased;
+        InputManager2.InputSystemActions.Player.Disable();
+    }
+
     private void Update()
     {
-        CheckGround();       // Detecta si está en el suelo
-        ApplyJumpPhysics();  // Aplica física del salto 
+        _isGrounded = CheckGround();
+        ApplyJumpPhysics();
+    }
+
+    private void FixedUpdate()
+    {
+        HandleMovement();
     }
 
     #region MOVIMIENTO
-    
 
-    private void FixedUpdate() //como el jugador se mueve con fuerzas(gravedad etc) se usa el fuxed Update (no depende de los frames)
+    private void HandleMovement()
     {
         _movementDirection = InputManager2.InputSystemActions.Player.Movement.ReadValue<Vector2>();
-        // Velocidad actual y objetivo
-        float currentSpeed = _rb.velocity.x;
-        float baseSpeed = running ? _runSpeed : _moveSpeed;   // Usar el _runSpeed si se corre
-        float targetSpeed = _movementDirection.x * baseSpeed; // Velocidad  según input
 
-        float speedDiff = targetSpeed - currentSpeed;    // Diferencia entre actual y objetivo
-        float accelRate;
+        float targetSpeed = _movementDirection.x * (_isRunning ? _runSpeed : _moveSpeed);
+        float speedDif = targetSpeed - _rb.velocity.x;
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? _acceleration : _deceleration;
 
-        //Para que acelere y desacelere dependiendo cuando esta en el suelo
-        if (isGrounded)
-        {
-            // acelara o desacelera dependiendo de si detecta un input o no
-            accelRate = Mathf.Abs(targetSpeed) > 0.01f ? _acceleration : _deceleration;
-        }
-        else
-        {
-            // para no frenarse en el aire
-            if (Mathf.Abs(targetSpeed) > 0.01f)
-                accelRate = _acceleration * 0.5f; //Baja la aceleracion en el aire para que vaya mas lento
-            else
-                accelRate = 0f; // Mantener velocidad horizontal
-        }
+        float movement = speedDif * accelRate;
+        _rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
 
-        // Se aplica la fuerza al rigidbody
-        float movement = speedDiff * accelRate;
-        _rb.AddForce(new Vector2(movement, 0f));
-
-        // Limitacion de la velocidad maxima
-        float clampedX = Mathf.Clamp(_rb.velocity.x, -_maxSpeed, _maxSpeed);
-        _rb.velocity = new Vector2(clampedX, _rb.velocity.y);
+        // COMENTADO: Si usas el script de animaciones con flipX, esta lógica ya no es necesaria aquí.
+        // if (_movementDirection.x != 0) transform.localScale = new Vector3(Mathf.Sign(_movementDirection.x), 1, 1);
     }
+
+    private void OnRun(InputAction.CallbackContext ctx) => _isRunning = ctx.ReadValueAsButton();
+
     #endregion
 
     #region SALTO
-    private void JumpPressed(InputAction.CallbackContext callbackContext)
+
+    private void OnJumpPressed(InputAction.CallbackContext ctx)
     {
-        // Para saltar solo si estas tocando el suelo
-        if (isGrounded && callbackContext.phase == InputActionPhase.Started)
+        if (_isGrounded)
         {
-            jumpHeld = true;
+            _jumpHeld = true;
             _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
         }
-        /*else
-        {
-            if (callbackContext.phase == InputActionPhase.Canceled)
-            {
-                jumpHeld = false;
-            }
-        }*/
     }
 
-    private void JumpReleased(InputAction.CallbackContext callbackContext)
-    {
-        if (callbackContext.phase == InputActionPhase.Canceled)
-        {
-            jumpHeld = false;
-        }
-        
-    }
+    private void OnJumpReleased(InputAction.CallbackContext ctx) => _jumpHeld = false;
 
-    // Salto variable
     private void ApplyJumpPhysics()
     {
-        // Caída más rápida
         if (_rb.velocity.y < 0)
         {
             _rb.velocity += Vector2.up * Physics2D.gravity.y * (_fallMultiplier - 1) * Time.deltaTime;
         }
-
-        // Salto más corto si sueltas el botón
-        else if (_rb.velocity.y > 0 && !jumpHeld)
+        else if (_rb.velocity.y > 0 && !_jumpHeld)
         {
             _rb.velocity += Vector2.up * Physics2D.gravity.y * (_shortJumpMultiplier - 1) * Time.deltaTime;
         }
     }
+
     #endregion
 
-    #region GROUND CHECK
-    private void CheckGround()
+    #region RAYCAST
+
+    private bool CheckGround()
     {
-        // Raycast hacia abajo para detectar suelo
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, _groundRayLength, _groundLayer);
+        Vector2 pos = transform.position;
+        bool center = Physics2D.Raycast(pos, Vector2.down, _groundRayLength, _groundLayer);
+        bool left = Physics2D.Raycast(pos + Vector2.left * _groundRayOffset, Vector2.down, _groundRayLength, _groundLayer);
+        bool right = Physics2D.Raycast(pos + Vector2.right * _groundRayOffset, Vector2.down, _groundRayLength, _groundLayer);
 
+        Debug.DrawRay(pos, Vector2.down * _groundRayLength, Color.red);
 
-        Debug.DrawRay(transform.position, Vector2.down * _groundRayLength, Color.red);
-
-        isGrounded = hit.collider != null;
+        return center || left || right;
     }
-    #endregion
 
-    #region RUN
-    private void Run(InputAction.CallbackContext callbackContext)
-    {
-        if (callbackContext.phase == InputActionPhase.Started)
-        {
-            running = true;
-        }else if(callbackContext.phase == InputActionPhase.Canceled)
-        {
-            running=false;
-        }
-        
-    }
     #endregion
 }
