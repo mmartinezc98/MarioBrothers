@@ -3,18 +3,22 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Enemies : MonoBehaviour
 {
-
     #region VARIABLES
-    private Rigidbody2D _rb;
 
-    //MOVIMIENTO
-    [SerializeField] private float _movementSpeed = 1f;
-    [SerializeField] public int _movementDirection = -1;
+    // Accesible desde clases hijas (Koopa, Goomba)
+    protected Rigidbody2D _rb;
 
-    //RAYCAST
+    // Movimiento
+    [SerializeField] protected float _movementSpeed = 1f;
+    [SerializeField] protected int _movementDirection = -1;
+
+    // Raycast
     [SerializeField] private Transform _wallCheck;
     [SerializeField] private float _wallRayLength = 0.6f;
     [SerializeField] private LayerMask _wallLayer;
+
+    // Propiedad pública de solo lectura para animaciones
+    public int MovementDirection => _movementDirection;
 
     #endregion
 
@@ -25,7 +29,6 @@ public class Enemies : MonoBehaviour
 
     private void Update()
     {
-        // Dibuja el raycast 
         Vector2 dir = Vector2.right * _movementDirection;
         Debug.DrawRay(_wallCheck.position, dir * _wallRayLength, Color.red);
     }
@@ -33,18 +36,17 @@ public class Enemies : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-        WallCheck();        
+        WallCheck();
     }
 
-    //Movimineto básico de los enemigos
-    private void Move()
+    // Ahora es virtual para que Koopa pueda sobrescribirlo
+    protected virtual void Move()
     {
         _rb.velocity = new Vector2(_movementDirection * _movementSpeed, _rb.velocity.y);
     }
 
     #region MOVIMIENTO
 
-    //RAYCAST
     private void WallCheck()
     {
         Vector2 dir = Vector2.right * _movementDirection;
@@ -53,25 +55,16 @@ public class Enemies : MonoBehaviour
 
         if (wallHit)
             TurnAway();
-    }    
+    }
 
-    // MÉTODO PARA CAMBIAR LA DIRECCION AL CHOCHAR    
-    private void TurnAway()
+    protected void TurnAway()
     {
         _movementDirection *= -1;
     }
 
     #endregion
 
-    //Metodo para cuando mario salta sobre los enemigos
-    public virtual void OnStomped()
-    {
-        
-    }
+    public virtual void OnStomped() { }
 
-    public virtual void OnSideHit()
-    {
-        
-
-    }
+    public virtual void OnSideHit() { }
 }

@@ -17,18 +17,16 @@ public class GoombaAnimations : MonoBehaviour
 
     private void Update()
     {
-        // 1. Giro del sprite basado en la dirección de movimiento del script Enemies
-        if (_goomba._movementDirection > 0) _sprite.flipX = true;
-        else if (_goomba._movementDirection < 0) _sprite.flipX = false;
+        // Girar sprite según la dirección del movimiento
+        if (_goomba.MovementDirection > 0)
+            _sprite.flipX = true;
+        else if (_goomba.MovementDirection < 0)
+            _sprite.flipX = false;
     }
 
-    // Este método lo llamaremos desde el script de lógica cuando Mario lo pise
     public void PlayStomped()
     {
         if (_anim != null)
-        {
-            // Cambiamos "onStomped" por "Dead" para que coincida con tu Animator
             _anim.SetTrigger("onStomped");
-        }
     }
 }

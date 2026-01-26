@@ -2,7 +2,7 @@ using UnityEngine;
 public class HeadCollider : MonoBehaviour
 {
     private Enemies _enemy;
-    [SerializeField] private float _reboundForce= 10f;
+    [SerializeField] private float _reboundForce = 10f;
 
     private void Awake()
     {
@@ -21,6 +21,6 @@ public class HeadCollider : MonoBehaviour
             Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
             rb.velocity = new Vector2(rb.velocity.x, _reboundForce);
         }
-    }    
+    }
 }
 

@@ -4,17 +4,31 @@ public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Transform _target;   // Mario
     [SerializeField] private float _smoothSpeed = 5f;
-    [SerializeField] private float _offsetX = 2f; // Para que se desplace horizontalmente solo
+    [SerializeField] private float _offsetX = 2f;
+
+    private float _maxCameraX; // Guarda la posición máxima alcanzada
+
+    private void Start()
+    {
+        _maxCameraX = transform.position.x; // Inicializa con la posición inicial de la cámara
+    }
 
     private void FixedUpdate()
     {
-        // Posición deseada en X
-        float newXPosition = _target.position.x + _offsetX;
+        // Posición deseada en X según Mario
+        float desiredX = _target.position.x + _offsetX;
 
-        // Movimiento suave 
-        float newX = Mathf.MoveTowards(transform.position.x, newXPosition, _smoothSpeed * Time.fixedDeltaTime);
+        // Movimiento suave hacia la posición deseada
+        float newX = Mathf.MoveTowards(transform.position.x, desiredX, _smoothSpeed * Time.fixedDeltaTime);
 
-        //actualiza la posición solo en el ejex (sin seguir el y)
-        transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+        // Evitar retroceso: la cámara solo puede avanzar si newX > _maxCameraX
+        if (newX > _maxCameraX)
+        {
+            _maxCameraX = newX; // Actualiza el máximo alcanzado
+        }
+
+        // La cámara se queda en el máximo alcanzado, nunca retrocede
+        transform.position = new Vector3(_maxCameraX, transform.position.y, transform.position.z);
     }
 }
+
