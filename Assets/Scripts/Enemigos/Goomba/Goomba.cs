@@ -6,14 +6,22 @@ public class Goomba : Enemies
 
     [Header("Aguante del sprite de muerte")]
     [SerializeField] private float _deadStanding;
+    private CircleCollider2D _circleCollider;
+    private BoxCollider2D _headCollider;
 
     private void Start()
     {
+        _headCollider= GetComponentInChildren<BoxCollider2D>();
         _goombaAnim = GetComponent<GoombaAnimations>();
+        _circleCollider = GetComponent<CircleCollider2D>();   
     }
 
     public override void OnStomped()
     {
+        //desactivamos los colliders del goomba y de la cabeza para que no colisione con mario otra vez
+       _circleCollider.enabled = false;
+       _headCollider.enabled = false;   
+       
         // 1. Avisar al script de animaciones
         if (_goombaAnim != null) _goombaAnim.PlayStomped();
 

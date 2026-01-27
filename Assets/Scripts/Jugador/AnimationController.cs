@@ -31,12 +31,12 @@ public class PlayerAnimations : MonoBehaviour
         float speedX = Mathf.Abs(_rb.velocity.x);
         float inputX = _player.MovementDirection.x;
 
-        // 1. Enviamos parámetros básicos al Animator
+        // parámetros para el animator
         _anim.SetFloat("velocityX", speedX);
         _anim.SetFloat("velocityY", _rb.velocity.y);
         _anim.SetBool("isGrounded", _player.IsGrounded);
 
-        // 2. Lógica de Derrape (Drifting / Skidding)
+        // derrape (Drifting / Skidding)
         // Guardamos el resultado en una variable local llamada isDrifting
         bool isDrifting = _player.IsGrounded &&
                           speedX > _minDriftVelocity &&
@@ -46,8 +46,7 @@ public class PlayerAnimations : MonoBehaviour
         // Pasamos esa variable al parámetro del Animator
         _anim.SetBool("isDrifting", isDrifting);
 
-        // 3. Girar el Sprite (Flip)
-        // Si está derrapando, NO giramos el sprite para que mantenga la pose de freno
+        // giramos el Sprite (Flip)        
         if (!isDrifting)
         {
             if (inputX > 0.1f) _sprite.flipX = false;

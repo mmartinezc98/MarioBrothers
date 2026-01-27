@@ -35,7 +35,7 @@ public class KoopaAnimationsController : MonoBehaviour
         bool shellMode =
             _koopa.CurrentState == Koopa.KoopaState.ShellIdle ||
             _koopa.CurrentState == Koopa.KoopaState.ShellMoving;
-        Debug.Log("Modo concha" + shellMode);
+       // Debug.Log("Modo concha" + shellMode);
         _anim.SetBool("isShell", shellMode);
     }
 }

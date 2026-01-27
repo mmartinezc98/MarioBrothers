@@ -40,7 +40,7 @@ public class Koopa : Enemies
         }
     }
 
-    public void OnStomped(Vector2 marioPosition)
+    public override void OnStomped()
     {
         switch (_state)
         {
@@ -49,7 +49,7 @@ public class Koopa : Enemies
                 break;
 
             case KoopaState.ShellIdle:
-                StartShellMoving(marioPosition);
+                //StartShellMoving();
                 break;
 
             case KoopaState.ShellMoving:

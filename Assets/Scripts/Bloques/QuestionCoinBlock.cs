@@ -64,5 +64,3 @@ public class QuestionBlockCoin : BlockBase
             animator.SetBool("Used", true);
     }
 }
-
-

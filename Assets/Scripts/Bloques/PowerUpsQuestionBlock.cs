@@ -43,7 +43,8 @@ public class PowerUpsQuestionBlock : BlockBase
 
     protected override void OnBecomeUsed()
     {
-        if (_usedSprite != null)
-            _sr.sprite = _usedSprite;
+        Animator animator = GetComponent<Animator>();
+        if (animator != null)
+            animator.SetBool("Used", true);
     }
 }

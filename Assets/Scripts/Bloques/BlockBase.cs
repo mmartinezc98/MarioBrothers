@@ -35,14 +35,16 @@ public abstract class BlockBase : MonoBehaviour
 
     #region CORRUTINA PARA EL BUMP DEL BLOQUE
    
-    private IEnumerator BumpRoutine(GameObject hitter)
+    private IEnumerator BumpRoutine(GameObject hitter) //necesaria la corrutina poruque necesita que se repita el proceso hasta que llegue a la posicion final
     {
-        //Subida del bloque
+        //target position que necesitamos para el MoveTowards
         Vector3 targetPos = _originalPosition + Vector3.up * _bumpHeight;
 
+
+        //subimos el bloque hacia arriba
         while (Vector3.Distance(transform.localPosition, targetPos) > 0.001f)
         {
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPos, _bumpSpeed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPos, _bumpSpeed * Time.deltaTime); //se multiplia por TimeDeltaTime porque depende de los frames
             yield return null;
         }
 
@@ -52,11 +54,7 @@ public abstract class BlockBase : MonoBehaviour
         //bajada del bloque
         while (Vector3.Distance(transform.localPosition, _originalPosition) > 0.001f)
         {
-            transform.localPosition = Vector3.MoveTowards(
-                transform.localPosition,
-                _originalPosition,
-                _bumpSpeed * Time.deltaTime
-            );
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, _originalPosition, _bumpSpeed * Time.deltaTime);
             yield return null;
         }
 
@@ -81,5 +79,3 @@ public abstract class BlockBase : MonoBehaviour
     }
     
 }
-
-
