@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour
     private bool _isRunning = false;
 
     [Header("Salto")]
-    [SerializeField] private float _jumpForce = 12f;
-    [SerializeField] private float _fallMultiplier = 3f;
+    [SerializeField] private float _jumpForce = 10f;
+    [SerializeField] private float _fallMultiplier = 1.5f;
     [SerializeField] private float _shortJumpMultiplier = 4f;
     private bool _jumpHeld = false;
 
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
     #region ANIMACIONES
 
-    // Estas propiedades permiten que otros scripts lean el estado pero no lo modifiquen
+    
     public bool IsGrounded => _isGrounded;
     public bool IsRunning => _isRunning;
     public Vector2 MovementDirection => _movementDirection;
@@ -90,8 +90,6 @@ public class PlayerController : MonoBehaviour
         float movement = speedDif * accelRate;
         _rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
 
-        // COMENTADO: Si usas el script de animaciones con flipX, esta lógica ya no es necesaria aquí.
-        // if (_movementDirection.x != 0) transform.localScale = new Vector3(Mathf.Sign(_movementDirection.x), 1, 1);
     }
 
     private void OnRun(InputAction.CallbackContext ctx) => _isRunning = ctx.ReadValueAsButton();
@@ -100,28 +98,46 @@ public class PlayerController : MonoBehaviour
 
     #region SALTO
 
-    private void OnJumpPressed(InputAction.CallbackContext ctx)
+   private void OnJumpPressed(InputAction.CallbackContext ctx)
+{
+    if (_isGrounded)
     {
-        if (_isGrounded)
-        {
-            _jumpHeld = true;
-            _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
-        }
+        _jumpHeld = true;
+
+        // Evita acumulación de velocidad vertical
+        Vector2 v = _rb.velocity;
+        v.y = 0;
+        _rb.velocity = v;
+
+        // Impulso inicial del salto
+        _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
     }
+}
 
-    private void OnJumpReleased(InputAction.CallbackContext ctx) => _jumpHeld = false;
+private void OnJumpReleased(InputAction.CallbackContext ctx)
+{
+    _jumpHeld = false;
+}
 
-    private void ApplyJumpPhysics()
+private void ApplyJumpPhysics()
+{
+    // Caída rápida (fall multiplier)
+    if (_rb.velocity.y < 0)
     {
-        if (_rb.velocity.y < 0)
-        {
-            _rb.velocity += Vector2.up * Physics2D.gravity.y * (_fallMultiplier - 1) * Time.deltaTime;
-        }
-        else if (_rb.velocity.y > 0 && !_jumpHeld)
-        {
-            _rb.velocity += Vector2.up * Physics2D.gravity.y * (_shortJumpMultiplier - 1) * Time.deltaTime;
-        }
+        _rb.AddForce(
+            Vector2.up * Physics2D.gravity.y * (_fallMultiplier - 1) * _rb.mass,
+            ForceMode2D.Force
+        );
     }
+    // Salto corto (short jump)
+    else if (_rb.velocity.y > 0 && !_jumpHeld)
+    {
+        _rb.AddForce(
+            Vector2.up * Physics2D.gravity.y * (_shortJumpMultiplier - 1) * _rb.mass,
+            ForceMode2D.Force
+        );
+    }
+}
 
     #endregion
 
