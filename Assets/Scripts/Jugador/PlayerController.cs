@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
 
-
     //SUSCRIPCION A EVENTOS
     private void OnEnable()
     {
@@ -53,7 +52,6 @@ public class PlayerController : MonoBehaviour
         InputManager2.InputSystemActions.Player.Jump.canceled += OnJumpReleased;
         InputManager2.InputSystemActions.Player.Enable();
     }
-
 
     //DESUSCRIPCION A EVENTOS
     private void OnDisable()
@@ -178,5 +176,4 @@ private void ApplyJumpPhysics()
         }
     }
     #endregion
-
 }

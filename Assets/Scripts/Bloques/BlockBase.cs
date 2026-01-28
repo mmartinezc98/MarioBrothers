@@ -9,12 +9,14 @@ public abstract class BlockBase : MonoBehaviour
 {
     [SerializeField] protected BlockState state = BlockState.Idle; //seteamos el estado inicial del bloque a idle
 
+    #region VARIABLES
     [Header("Bump Settings")]
     [SerializeField] private float _bumpHeight = 0.15f;   // altura a la que sube el bloque (target)
     [SerializeField] private float _bumpSpeed = 8f;       // velocidad a la que se mueve
 
     private Vector3 _originalPosition;
     private bool _isBumping = false;
+    #endregion
 
     protected virtual void Awake()
     {
@@ -31,7 +33,6 @@ public abstract class BlockBase : MonoBehaviour
 
         StartCoroutine(BumpRoutine(hitter)); //iniciamos la corrutina
     }
-
 
     #region CORRUTINA PARA EL BUMP DEL BLOQUE
    

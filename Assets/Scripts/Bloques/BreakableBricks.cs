@@ -32,7 +32,6 @@ public class BreakableBricks : BlockBase
         // Aquí podrás instanciar tus partículas de rotura cuando las tengas
         // Instantiate(breakParticlesPrefab, transform.position, Quaternion.identity);
 
-        // Por ahora simplemente desaparece
         //gameObject.SetActive(false);
 
         //destruimos el bloque

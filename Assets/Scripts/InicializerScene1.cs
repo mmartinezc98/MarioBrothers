@@ -5,5 +5,6 @@ public class InicializerScene1 : MonoBehaviour //PARA INICIALIZAR TODO LO NECESA
     private void Awake()
     {
         InputManager2.SwitchMap(InputManager2.InputSystemActions.Player); //inicializamos el input manager de los controles de mario
+
     }
 }
