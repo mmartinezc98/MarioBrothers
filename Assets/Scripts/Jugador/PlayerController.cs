@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
@@ -28,11 +30,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask _groundLayer;
     private bool _isGrounded;
 
-    //MAQUINA DE ESTADOS
-   public StateMachine stateMachine; //maquina de estados
-    public SmallState smallState; //estado pequeño
-    public BigState bigState; //estado grande
-    public FireState fireState; //estado seta
+   
 
     #endregion
 
@@ -48,17 +46,13 @@ public class PlayerController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
 
-        //Instanciamos la maquina de estados y los estados
-        stateMachine= new StateMachine();
-        smallState= new SmallState(this);
-        bigState= new BigState(this);
-        fireState= new FireState(this);
+       
 
     }
 
     private void Start()
     {
-        stateMachine.InitialState(smallState); //inicializamos la maquina de estados con el mario pequeño
+       
     }
 
     //SUSCRIPCION A EVENTOS
@@ -195,10 +189,4 @@ private void ApplyJumpPhysics()
     }
     #endregion
 
-    #region MAQUINA DE ESTADOS
-    public void ChangeSizeState(MarioSizeState newState)
-    {
-        stateMachine.ChangeState(newState);
-    }
-    #endregion
 }
