@@ -44,15 +44,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();     
 
-       
-
-    }
-
-    private void Start()
-    {
-       
     }
 
     //SUSCRIPCION A EVENTOS
@@ -161,7 +154,7 @@ private void ApplyJumpPhysics()
         bool right = Physics2D.Raycast(pos + Vector2.right * _groundRayOffset, Vector2.down, _groundRayLength, _groundLayer);
 
         Debug.DrawRay(pos, Vector2.down * _groundRayLength, Color.red);
-
+        
         return center || left || right;
     }
 

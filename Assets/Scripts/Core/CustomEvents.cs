@@ -13,7 +13,7 @@ public class CustomEvents
     public UnityEvent OnPointsChanged = new UnityEvent();
     public UnityEvent OnDamageTaken = new UnityEvent();
     public UnityEvent OnCoinsChange = new UnityEvent();
-    public UnityEvent OnStatusChange = new UnityEvent();
+    public UnityEvent<MarioStatus> OnStatusChange = new UnityEvent<MarioStatus>(); //se le pasa el MarioStatus
     public UnityEvent OnPowerUpTaken = new UnityEvent();
 
 

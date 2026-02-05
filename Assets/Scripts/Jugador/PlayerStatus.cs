@@ -7,21 +7,11 @@ public class PlayerStatus : MonoBehaviour
 
     private void Awake()
     {
+       
         Main.CustomEvents.OnDamageTaken.AddListener(Takedamage);
         Main.CustomEvents.OnPowerUpTaken.AddListener(TakePowerUp);
 
-    }
-    
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    } 
 
     
 
@@ -69,18 +59,22 @@ public class PlayerStatus : MonoBehaviour
     public void SetSmall() //cambia el estado a pequeño
     {
         Main.Player.ChangeStatus(MarioStatus.small);
+        
+
         Debug.Log("Mario es pequeño");
     }
 
     public void SetBig() //cambia el estado a grande
     {
         Main.Player.ChangeStatus(MarioStatus.big);
+        
         Debug.Log("Mario es grande");
     }
 
     public void SetFire() //cambia el estado a fuego
     {
         Main.Player.ChangeStatus(MarioStatus.fire);
+       
         Debug.Log("Mario es de fuego");
     }
 }
