@@ -3,7 +3,10 @@ using UnityEngine;
 public class PowerUpsQuestionBlock : BlockBase
 {
     [Header("Power-Up Settings")]
-    [SerializeField] private GameObject _powerUpPrefab;   // Prefab del powerup
+     
+    [SerializeField] private GameObject _mushromPrefab;   // Prefab del powerup de la seta
+    [SerializeField] private GameObject _firePlantPrefab;   // Prefab del powerup de la planta de fuego
+
     [SerializeField] private Transform _spawnPoint;       // punto donde se instancia el prefab
     [SerializeField] private Sprite _usedSprite;          // Sprite cuando el bloque queda gastado
 
@@ -29,16 +32,29 @@ public class PowerUpsQuestionBlock : BlockBase
         OnBecomeUsed();
     }
 
-    private void SpawnPowerUp()
+    public override void SpawnPowerUp()
     {
-        if (_powerUpPrefab == null)
-            return;
+       
 
+        //posicion del power up al instanciarlo
         Vector3 pos = _spawnPoint != null
             ? _spawnPoint.position
             : transform.position + Vector3.up;
 
-        Instantiate(_powerUpPrefab, pos, Quaternion.identity);
+
+        switch (Main.Player.Status){
+
+            case MarioStatus.small:
+                Instantiate(_mushromPrefab, pos, Quaternion.identity);
+                break;
+            case MarioStatus.big:
+                Instantiate(_firePlantPrefab, pos, Quaternion.identity);
+                break;
+            case MarioStatus.fire:
+                Instantiate(_firePlantPrefab, pos, Quaternion.identity);
+                break;
+
+        }       
     }
 
     protected override void OnBecomeUsed()
@@ -47,4 +63,7 @@ public class PowerUpsQuestionBlock : BlockBase
         if (animator != null)
             animator.SetBool("Used", true);
     }
+
+   
+
 }

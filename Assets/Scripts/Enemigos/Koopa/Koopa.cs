@@ -89,15 +89,20 @@ public class Koopa : Enemies
         GetComponent<KoopaAnimationsController>()?.UpdateAnimation();
     }
 
-    // NUEVO: golpe lateral a la concha
-    public override void OnSideHit()
+    public override void OnSideHit() //metodo que detecta las colisiones laterales de los enemigos con mario
     {
-        if (_state == KoopaState.ShellIdle)
+
+        if (_state == KoopaState.ShellIdle)  //ejecuta el codigo si el koopa esta en el modo concha
         {
             _movementDirection *= -1;
             _state = KoopaState.ShellMoving;
 
             GetComponent<KoopaAnimationsController>()?.UpdateAnimation();
+        }
+
+        if (_state == KoopaState.Walking) //si el koopa esta andando, invoca al evento de on damage taken
+        {
+            Main.CustomEvents.OnDamageTaken.Invoke();
         }
     }
 }

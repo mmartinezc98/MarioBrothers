@@ -67,4 +67,12 @@ public class Enemies : MonoBehaviour
     public virtual void OnStomped() { }
 
     public virtual void OnSideHit() { }
+
+    public void OnCollisionEnter2D(Collision2D collision) //detecta las colisiones laterales de lso enemigos con mario (Player)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            OnSideHit();
+        }
+    }
 }

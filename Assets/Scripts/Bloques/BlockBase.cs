@@ -78,5 +78,10 @@ public abstract class BlockBase : MonoBehaviour
     {
 
     }
+
+    public virtual void SpawnPowerUp()
+    {
+
+    }
     
 }

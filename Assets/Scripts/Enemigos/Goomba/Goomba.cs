@@ -39,4 +39,12 @@ public class Goomba : Enemies
         // destruye el objeto despues del tiempo de espera
         Destroy(gameObject, _deadStanding);
     }
+
+    
+    public override void OnSideHit()
+    {
+        Main.CustomEvents.OnDamageTaken.Invoke(); //invoca el evento cuando colisiona lateralmente con mario
+    }
+
+    
 }

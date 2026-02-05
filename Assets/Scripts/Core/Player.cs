@@ -10,8 +10,23 @@ public class Player
 
     public MarioStatus Status { get; private set; } = MarioStatus.small; //inicializamos el estado en small (predeterminado)
 
-    public void ChangeStatus()
+    public void ChangeStatus(MarioStatus marioStatus)
     {
+        switch (marioStatus) {  //cambiar los estados de mario
+
+            case MarioStatus.small:
+                Status = MarioStatus.small;
+                break;
+            
+            case MarioStatus.big:
+                Status = MarioStatus.big; 
+                break;
+
+            case MarioStatus.fire:
+                Status = MarioStatus.fire;
+                break;
+                
+        }
 
     }
 
