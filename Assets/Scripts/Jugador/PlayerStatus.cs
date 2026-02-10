@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStatus : MonoBehaviour
-{
 
-    private void Awake()
+{
+    PlayerController playerController;
+    private BoxCollider2D _bodyCollider; //collider del cuerpo
+    private BoxCollider2D _headCollider; //headcollider
+
+    private void Start()
     {
-       
+        playerController = GetComponent<PlayerController>();    
+        _bodyCollider = GetComponent<BoxCollider2D>();
+        _headCollider = GetComponentInChildren<BoxCollider2D>();
+
         Main.CustomEvents.OnDamageTaken.AddListener(Takedamage);
         Main.CustomEvents.OnPowerUpTaken.AddListener(TakePowerUp);
+       
 
     } 
 
@@ -58,23 +66,59 @@ public class PlayerStatus : MonoBehaviour
 
     public void SetSmall() //cambia el estado a pequeño
     {
+        SetSmallColliders();
         Main.Player.ChangeStatus(MarioStatus.small);
-        
+       
+         
 
         Debug.Log("Mario es pequeño");
     }
 
     public void SetBig() //cambia el estado a grande
     {
+        SetBigColliders();
         Main.Player.ChangeStatus(MarioStatus.big);
+        
         
         Debug.Log("Mario es grande");
     }
 
     public void SetFire() //cambia el estado a fuego
     {
+        SetBigColliders();
         Main.Player.ChangeStatus(MarioStatus.fire);
-       
+        
+        
         Debug.Log("Mario es de fuego");
+    }
+
+    private void SetSmallColliders()
+    {
+        // Cambiar collider del cuerpo
+        Vector2 size = _bodyCollider.size;
+        size.y = 1.046902f;                     // tamaño pequeño
+        _bodyCollider.size = size;
+
+        // Cambiar head collider
+        Vector2 headOffset = _headCollider.offset;
+        headOffset.y = -0.4185036f;             // offset pequeño
+        _headCollider.offset = headOffset;
+
+
+
+    }
+
+    private void SetBigColliders()
+    {
+        // Cambiar collider del cuerpo
+        Vector2 size = _bodyCollider.size;
+        size.y = 2f;                     // tamaño grande
+        _bodyCollider.size = size;
+
+        // Cambiar head collider
+        Vector2 headOffset = _headCollider.offset;
+        headOffset.y = 0.1f;             // offset grande
+        _headCollider.offset = headOffset;
+
     }
 }

@@ -11,6 +11,10 @@ public class PlayerAnimations : MonoBehaviour
     private SpriteRenderer _sprite;
     private PlayerController _player;
 
+    private void Awake()
+    {
+        Main.CustomEvents.OnStatusChange.AddListener(SelectStatus);
+    }
     private void Start()
     {
         _anim = GetComponent<Animator>();
@@ -18,7 +22,7 @@ public class PlayerAnimations : MonoBehaviour
         _sprite = GetComponent<SpriteRenderer>();
         _player = GetComponent<PlayerController>();
 
-        Main.CustomEvents.OnStatusChange.AddListener(SelectStatus);
+        
     }
 
     

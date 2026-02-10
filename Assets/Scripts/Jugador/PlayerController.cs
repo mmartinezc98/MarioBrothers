@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D _rb;
+    private BoxCollider2D _boxCollider;
 
     #region VARIABLES
 
@@ -45,6 +46,10 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();     
+        _boxCollider = GetComponent<BoxCollider2D>();
+        
+
+        Main.CustomEvents.OnStatusChange?.AddListener(CalculateRaycastLenght);
 
     }
 
@@ -156,6 +161,11 @@ private void ApplyJumpPhysics()
         Debug.DrawRay(pos, Vector2.down * _groundRayLength, Color.red);
         
         return center || left || right;
+    }
+
+    public void CalculateRaycastLenght(MarioStatus status) //calculamos el tamaño del raycast dependiendo del boxcollider del player (para cuando sea grande/pequeño)
+    {
+        _groundRayLength = (_boxCollider.size.y / 2) + 0.1f;
     }
 
     #endregion

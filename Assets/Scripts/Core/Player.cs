@@ -27,7 +27,7 @@ public class Player
                 break;
                 
         }
-        Main.CustomEvents.OnStatusChange.Invoke(marioStatus);
+        Main.CustomEvents.OnStatusChange?.Invoke(marioStatus);
     }
 
     public void CoinChange()
