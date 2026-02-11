@@ -31,6 +31,14 @@ public class PlayerAnimations : MonoBehaviour
         float speedX = Mathf.Abs(_rb.velocity.x);
         float inputX = _player.MovementDirection.x;
 
+        // Flip del sprite según la dirección del movimiento
+        if (inputX > 0)
+            _sprite.flipX = false;   // mirando a la derecha
+        else if (inputX < 0)
+            _sprite.flipX = true;    // mirando a la izquierda
+
+
+
         // ---------------------------------------------------------
         //  PARÁMETROS DEL ANIMATOR
         // ---------------------------------------------------------

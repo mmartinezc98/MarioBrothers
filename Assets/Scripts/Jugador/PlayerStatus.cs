@@ -11,9 +11,9 @@ public class PlayerStatus : MonoBehaviour
 
     private void Start()
     {
-        playerController = GetComponent<PlayerController>();    
-        _bodyCollider = GetComponent<BoxCollider2D>();
-        _headCollider = GetComponentInChildren<BoxCollider2D>();
+        playerController = GetComponent<PlayerController>();    //cogemos el playerController
+        _bodyCollider = GetComponent<BoxCollider2D>();          //cogemos el box Colluder del cuerpo
+        _headCollider = GetComponentInChildren<BoxCollider2D>(); //cogemos el boxcollider de la cabeza
 
         Main.CustomEvents.OnDamageTaken.AddListener(Takedamage);
         Main.CustomEvents.OnPowerUpTaken.AddListener(TakePowerUp);
@@ -98,14 +98,6 @@ public class PlayerStatus : MonoBehaviour
         Vector2 size = _bodyCollider.size;
         size.y = 1.046902f;                     // tamaño pequeño
         _bodyCollider.size = size;
-
-        // Cambiar head collider
-        Vector2 headOffset = _headCollider.offset;
-        headOffset.y = -0.4185036f;             // offset pequeño
-        _headCollider.offset = headOffset;
-
-
-
     }
 
     private void SetBigColliders()
@@ -114,11 +106,6 @@ public class PlayerStatus : MonoBehaviour
         Vector2 size = _bodyCollider.size;
         size.y = 2f;                     // tamaño grande
         _bodyCollider.size = size;
-
-        // Cambiar head collider
-        Vector2 headOffset = _headCollider.offset;
-        headOffset.y = 0.1f;             // offset grande
-        _headCollider.offset = headOffset;
 
     }
 }

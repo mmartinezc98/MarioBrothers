@@ -4,35 +4,27 @@ using UnityEngine;
 
 public class BreakableBricks : BlockBase
 {
+    MarioStatus status = Main.Player.Status;
     protected override void OnHit(GameObject hitter)
     {
-        //rompemos el ladrillo cuando le demos
-        BreakBlock();
-
-        /*
-        // Cuando tengas tu sistema de tamaño del jugador, activa esto:
-
-        bool playerIsBig = hitter.GetComponent<PlayerSize>()?.IsBig ?? false;
-
-        if (playerIsBig)
+        
+        if (status == MarioStatus.big || status == MarioStatus.fire)
         {
-            BreakBlock();          // Mario grande → romper
+            BreakBlock();
         }
         else
         {
-            state = BlockState.Idle;   // Mario pequeño → solo bump
+            // Mario pequeño → solo bump
+            state = BlockState.Idle;
+            OnBecomeUsed();
         }
-        */
+
     }
 
     private void BreakBlock()
     {
         state = BlockState.Broken;
 
-        // Aquí podrás instanciar tus partículas de rotura cuando las tengas
-        // Instantiate(breakParticlesPrefab, transform.position, Quaternion.identity);
-
-        //gameObject.SetActive(false);
 
         //destruimos el bloque
         Destroy(gameObject);

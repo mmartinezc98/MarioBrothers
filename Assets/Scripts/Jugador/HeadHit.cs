@@ -2,6 +2,14 @@ using UnityEngine;
 
 public class HeadHit : MonoBehaviour
 {
+    private BoxCollider2D _headCollider;
+
+    private void Start()
+    {
+        _headCollider = GetComponent<BoxCollider2D>();
+        Main.CustomEvents.OnStatusChange.AddListener(ChangeHeadCollider);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         BlockBase block = collision.collider.GetComponent<BlockBase>(); //crea la referencia del bloque base con el que se colisiona para que se ejecuten los metodos
@@ -17,5 +25,26 @@ public class HeadHit : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ChangeHeadCollider(MarioStatus status)
+    {
+       
+        switch (status) {
+
+             case MarioStatus.small:
+                transform.localPosition = new Vector3(transform.localPosition.x, 1.02f, transform.localPosition.z);
+                break;
+
+             case MarioStatus.big:
+                transform.localPosition =  new Vector3(transform.localPosition.x, 1.5f, transform.localPosition.z);
+                break;
+
+             case MarioStatus.fire:
+                transform.localPosition = new Vector3(transform.localPosition.x, 1.5f, transform.localPosition.z);
+                break;
+        
+        }
+        
     }
 }

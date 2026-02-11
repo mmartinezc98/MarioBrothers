@@ -16,6 +16,7 @@ public class Enemies : MonoBehaviour
     [SerializeField] private Transform _wallCheck;
     [SerializeField] private float _wallRayLength = 0.6f;
     [SerializeField] private LayerMask _wallLayer;
+    
 
     // Propiedad pública de solo lectura para animaciones
     public int MovementDirection => _movementDirection;
@@ -70,9 +71,14 @@ public class Enemies : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision) //detecta las colisiones laterales de lso enemigos con mario (Player)
     {
+        //controlamos cuando choca con mario
         if (collision.gameObject.CompareTag("Player"))
         {
             OnSideHit();
         }
+
+        
+
+
     }
 }
