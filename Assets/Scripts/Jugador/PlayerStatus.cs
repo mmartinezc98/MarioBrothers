@@ -71,7 +71,7 @@ public class PlayerStatus : MonoBehaviour
        
          
 
-        Debug.Log("Mario es pequeño");
+        //Debug.Log("Mario es pequeño");
     }
 
     public void SetBig() //cambia el estado a grande
@@ -80,7 +80,7 @@ public class PlayerStatus : MonoBehaviour
         Main.Player.ChangeStatus(MarioStatus.big);
         
         
-        Debug.Log("Mario es grande");
+        //Debug.Log("Mario es grande");
     }
 
     public void SetFire() //cambia el estado a fuego
@@ -89,7 +89,7 @@ public class PlayerStatus : MonoBehaviour
         Main.Player.ChangeStatus(MarioStatus.fire);
         
         
-        Debug.Log("Mario es de fuego");
+        //Debug.Log("Mario es de fuego");
     }
 
     private void SetSmallColliders()

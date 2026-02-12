@@ -10,6 +10,7 @@ public abstract class PowerUpsMain : MonoBehaviour
     [Header("Movimiento")]
     [SerializeField] private float moveSpeed = 2f;
     private int direction = 1; // empieza hacia la derecha
+    public bool CanMove=false; //para controlar a partir de que momento se empieza a mover para la animacion de subida desde el medio del bloque 
 
     [Header("Raycasts")]
     [SerializeField] private float wallRayLength = 0.25f;
@@ -34,9 +35,13 @@ public abstract class PowerUpsMain : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
-        CheckGroundStatus();
-        CheckForTurn();
+        if (!CanMove) //si se puede mover, hacemos todo el movimiento
+            return;
+
+            Move();
+            CheckGroundStatus();
+            CheckForTurn();
+        
     }
 
     private void Move()
@@ -44,6 +49,7 @@ public abstract class PowerUpsMain : MonoBehaviour
         _rb.velocity = new Vector2(direction * moveSpeed, _rb.velocity.y);
     }
 
+    #region RAYCCAST SUELO-PARED
     private void CheckGroundStatus()
     {
         // Raycast vertical desde la base del sprite
@@ -77,12 +83,13 @@ public abstract class PowerUpsMain : MonoBehaviour
         if (wallHit || noGround)
             direction *= -1;
     }
+    #endregion
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision) //para detectar que chocamos con Mario
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Collisiono con Mario");
+           // Debug.Log("Collisiono con Mario");
             ApplyPowerUp();
             Destroy(gameObject);
             
@@ -94,4 +101,8 @@ public abstract class PowerUpsMain : MonoBehaviour
 
     }
 
+    public void ActivateMovement()
+    {
+        CanMove = true;
+    }
 }

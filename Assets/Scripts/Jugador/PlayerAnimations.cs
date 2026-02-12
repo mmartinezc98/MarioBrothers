@@ -21,7 +21,6 @@ public class PlayerAnimations : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _sprite = GetComponent<SpriteRenderer>();
         _player = GetComponent<PlayerController>();
-
         
     }
 

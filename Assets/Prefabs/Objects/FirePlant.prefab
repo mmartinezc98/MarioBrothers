@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: -7500284586459651732}
   - component: {fileID: -7469131355064365178}
   - component: {fileID: 1878685730635960047}
-  m_Layer: 0
+  - component: {fileID: -5713166596982053532}
+  m_Layer: 10
   m_Name: FirePlant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
+  CanMove: 0
   wallRayLength: 0.25
   groundRayLength: 0.25
   groundLayer:
@@ -177,3 +179,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &-5713166596982053532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8253756088366725578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fab51590ce9eab4ebae6c7a817e1865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  riseSpeed: 0.1

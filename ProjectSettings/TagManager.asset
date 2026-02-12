@@ -15,8 +15,8 @@ TagManager:
   - Wall
   - Enemies
   - Blocks
-  - 
-  - 
+  - HeadCollider
+  - PowerUps
   - 
   - 
   - 

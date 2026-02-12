@@ -4,29 +4,32 @@ using UnityEngine;
 
 public class BreakableBricks : BlockBase
 {
-    MarioStatus status = Main.Player.Status;
+    private MarioStatus status; //para guardar el estado de mario
+
+    private void Update()
+    {
+        status = Main.Player.Status; //Actualizamos el estado de mario por si cambia
+    }
     protected override void OnHit(GameObject hitter)
     {
         
-        if (status == MarioStatus.big || status == MarioStatus.fire)
+        if (status == MarioStatus.big || status == MarioStatus.fire) //si el estado es grando o de fuego se rompe el bloque
         {
             BreakBlock();
         }
-        else
+        else //si es peequeño hacemos solo el bump
         {
-            // Mario pequeño → solo bump
+            
             state = BlockState.Idle;
             OnBecomeUsed();
         }
 
     }
 
-    private void BreakBlock()
+    private void BreakBlock()//destruimos el bloque
     {
         state = BlockState.Broken;
-
-
-        //destruimos el bloque
+        
         Destroy(gameObject);
     }
 
