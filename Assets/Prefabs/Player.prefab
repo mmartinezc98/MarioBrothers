@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6463287952188882510}
   m_Layer: 0
   m_Name: HeadHitCollider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,6 +104,8 @@ GameObject:
   - component: {fileID: 4882214641452832073}
   - component: {fileID: 181415639795925464}
   - component: {fileID: 7301587900315752956}
+  - component: {fileID: 8401120253376282052}
+  - component: {fileID: 7748949448711682038}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -242,7 +244,7 @@ MonoBehaviour:
   _moveSpeed: 4
   _runSpeed: 8
   _acceleration: 25
-  _deceleration: 8
+  _deceleration: 3
   _jumpForce: 10
   _fallMultiplier: 1.5
   _shortJumpMultiplier: 3
@@ -266,7 +268,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -296,3 +298,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7936306, y: 1.0469022}
   m_EdgeRadius: 0
+--- !u!114 &8401120253376282052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2888975225391966157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 450f34677097c9749ad890472787cb71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7748949448711682038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2888975225391966157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7800b6b37319e924e868460c716c6307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
