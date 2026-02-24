@@ -31,13 +31,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask _groundLayer;
     private bool _isGrounded;
 
-   
+    private int stompCombo = 0; //para controlar el combo al saltar sobre enemigos
+
 
     #endregion
 
     #region ANIMACIONES
 
-    
+
     public bool IsGrounded => _isGrounded;
     public bool IsRunning => _isRunning;
     public Vector2 MovementDirection => _movementDirection;
@@ -76,6 +77,12 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         _isGrounded = CheckGround();
+
+        if (_isGrounded) //si estamos en el suelo reseteamos el combo de los puntos
+        {
+            ResetStompCombo();
+        }
+
         ApplyJumpPhysics();
     }
 
@@ -110,6 +117,7 @@ public class PlayerController : MonoBehaviour
 {
     if (_isGrounded)
     {
+
         _jumpHeld = true;
 
         // Evita acumulación de velocidad vertical
@@ -192,4 +200,34 @@ private void ApplyJumpPhysics()
     }
     #endregion
 
+
+    #region MECANICA DEL COMBO DE PUNTOS
+    public void AddStompCombo()
+    {
+        stompCombo++;
+
+        int points = GetComboPoints(stompCombo);
+        Main.Player.PointsChange(points);
+    }
+
+    public void ResetStompCombo()
+    {
+        stompCombo = 0;
+    }
+
+    private int GetComboPoints(int combo)
+    {
+        switch (combo)
+        {
+            case 1: return 100;
+            case 2: return 200;
+            case 3: return 400;
+            case 4: return 800;
+            case 5: return 1000;
+            case 6: return 2000;
+            case 7: return 4000;
+            default: return 8000;
+        }
+    }
+    #endregion
 }

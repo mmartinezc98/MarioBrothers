@@ -29,16 +29,14 @@ public class Spawner : MonoBehaviour
 
         if (mario == null)
         {
-            Instantiate(this._prefabMario, spawnPos, Quaternion.identity); //si no existe mario instancia el prefab      
+            Instantiate(this._prefabMario, spawnPos, Quaternion.identity); //si no existe mario instancia el prefab     
+
+            //movemos la camara a la posicion de mario directamente manteniendo su posicion en z
+            Camera.main.transform.position = new Vector3(spawnPos.x, Camera.main.transform.position.y, Camera.main.transform.position.z); 
         }
         else
         {
-            //movemos la camara a la posicion de mario directamente manteniendo su posicion en z
-            Camera.main.transform.position = new Vector3(spawnPos.x, spawnPos.y, Camera.main.transform.position.z);
-
-            mario.transform.position = spawnPos; //si existe crea a mario en la posicion que hemos elegido con el Spawner
-
-            
+            mario.transform.position = spawnPos; //si existe crea a mario en la posicion que hemos elegido con el Spawner            
         }
        
     }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] private Transform _target;   // Mario
+    private Transform _target;   // Mario
     [SerializeField] private float _smoothSpeed = 5f;
     [SerializeField] private float _offsetX = 2f;
 

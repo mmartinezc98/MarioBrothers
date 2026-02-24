@@ -18,6 +18,8 @@ public class Goomba : Enemies
 
     public override void OnStomped()
     {
+        FindAnyObjectByType<PlayerController>().AddStompCombo(); //cuando es pisado inicia el metodo del combo de puntos
+
         //desactivamos los colliders del goomba y de la cabeza para que no colisione con mario otra vez
        _circleCollider.enabled = false;
        _headCollider.enabled = false;   
