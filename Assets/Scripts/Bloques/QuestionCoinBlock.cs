@@ -20,10 +20,8 @@ public class QuestionBlockCoin : BlockBase
         if (_coinCount <= 0)
             return;
 
-        SpawnCoinEffect();
+        SpawnCoinEffect();      
 
-        //sumamos la moneda al jugador TO-DO
-        AddCoinToPlayer(hitter);
 
         //restamos una al contado de las monedas en el bloque
         _coinCount--;
@@ -49,11 +47,6 @@ public class QuestionBlockCoin : BlockBase
         }
     }
 
-    private void AddCoinToPlayer(GameObject hitter)
-    {
-        // Aquí llamas a tu sistema de monedas
-        // hitter.GetComponent<PlayerCoins>()?.AddCoin(1);
-    }
 
     //Cambiamos el sprite del bloque cuando ya no quean monedas
     protected override void OnBecomeUsed()

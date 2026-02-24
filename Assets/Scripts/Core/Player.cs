@@ -10,6 +10,7 @@ public class Player
 
     public MarioStatus Status { get; private set; } = MarioStatus.small; //inicializamos el estado en small (predeterminado)
 
+    
     public void ChangeStatus(MarioStatus marioStatus)
     {
         switch (marioStatus) {  //cambiar los estados de mario
@@ -30,9 +31,12 @@ public class Player
         Main.CustomEvents.OnStatusChange?.Invoke(marioStatus);
     }
 
-    public void CoinChange()
+    public void CoinChange(int Coinvalue)
     {
+        Coins += Coinvalue;
 
+        //lanzamos el evento de cambio de monedas
+        Main.CustomEvents.OnCoinsChange?.Invoke();
     }
 
     public void LivesChange()

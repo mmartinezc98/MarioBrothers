@@ -16,27 +16,33 @@ public class Spawner : MonoBehaviour
 
     private void Awake()
     {
-        Vector3 spawnPos = GetSpawnPosition(Main.LastCheckPoint);
-
         // Si no hay checkpoint guardado, usamos el punto de spawn
         if (Main.LastCheckPoint == default)
         {
             Main.LastCheckPoint = CheckPointEnum.Spawn;
-        }       
+        }
+
+        Vector3 spawnPos = GetSpawnPosition(Main.LastCheckPoint);        
 
 
         var mario = GameObject.FindAnyObjectByType<PlayerController>();
 
         if (mario == null)
         {
-            Instantiate(this._prefabMario, this.transform.position, Quaternion.identity); //si no existe mario instancia el prefab      
+            Instantiate(this._prefabMario, spawnPos, Quaternion.identity); //si no existe mario instancia el prefab      
         }
         else
         {
-            mario.transform.position = this.transform.position; //si existe crea a mario en la posicion que hemos elegido con el Spawner
+            //movemos la camara a la posicion de mario directamente manteniendo su posicion en z
+            Camera.main.transform.position = new Vector3(spawnPos.x, spawnPos.y, Camera.main.transform.position.z);
+
+            mario.transform.position = spawnPos; //si existe crea a mario en la posicion que hemos elegido con el Spawner
+
+            
         }
        
     }
+    
 
     private Vector3 GetSpawnPosition(CheckPointEnum id)
     {

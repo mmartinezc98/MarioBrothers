@@ -22,7 +22,10 @@ public class Coin: MonoBehaviour
         targetPos = startPos + Vector3.up * _riseHeight; //calculamos la posicion final
 
         StartCoroutine(RiseAndDisappear());
+
+        Main.Player.CoinChange(1); //llamamos al metodo del player para que sume la moneda
     }
+
 
     #region CORRUTINA DE LA MONEDA
     private IEnumerator RiseAndDisappear()
