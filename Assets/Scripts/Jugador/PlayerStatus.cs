@@ -68,9 +68,8 @@ public class PlayerStatus : MonoBehaviour
     public void SetSmall() //cambia el estado a pequeño
     {
         SetSmallColliders();
-        Main.Player.ChangeStatus(MarioStatus.small);
-       
-         
+        Main.Player.LivesChange(-1);
+        Main.Player.ChangeStatus(MarioStatus.small);        
 
         //Debug.Log("Mario es pequeño");
     }

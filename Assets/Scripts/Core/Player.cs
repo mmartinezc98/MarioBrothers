@@ -56,7 +56,7 @@ public class Player
         // Si llega a 0 → Game Over
         if (Lives == 0)
         {
-           // Main.CustomEvents.OnGameOver?.Invoke();
+           Main.CustomEvents.OnGameOver?.Invoke();
         }
 
     }
@@ -76,6 +76,7 @@ public class Player
         {
             case 0:
                 Lives = 5;
+                
                 break;
 
             case 1:

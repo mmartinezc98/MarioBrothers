@@ -16,6 +16,7 @@ public class CustomEvents
     public UnityEvent<MarioStatus> OnStatusChange = new UnityEvent<MarioStatus>(); //se le pasa el MarioStatus
     public UnityEvent OnPowerUpTaken = new UnityEvent();
     public UnityEvent OnLivesChanged = new UnityEvent();
+    public UnityEvent OnGameOver = new UnityEvent();
 
 
 
