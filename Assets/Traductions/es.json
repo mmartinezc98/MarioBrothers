@@ -1,0 +1,51 @@
+{
+	 "translations": 
+    [
+        {
+            "key": "_jugador" , 
+			"value":"1 jugador"
+        },
+		{
+            "key": "_opciones" , 
+			"value":"opciones"
+        },
+		{
+            "key": "_salir" , 
+			"value":"salir"
+        },
+		{
+            "key": "_dificultad" , 
+			"value":"dificultad"
+        },
+		{
+            "key": "_facil" , 
+			"value":"facil"
+        },{
+            "key": "_normal" , 
+			"value":"normal"
+        },
+		{
+            "key": "_dificil" , 
+			"value":"dificil"
+        },
+		{
+            "key": "_idioma" , 
+			"value":"idioma"
+        },
+		{
+            "key": "_esp" , 
+			"value":"español"
+        },{
+            "key": "_ing" , 
+			"value":"ingles"
+        },{
+            "key": "_mundo" , 
+			"value":"mundo"
+        },{
+            "key": "_tiempo" , 
+			"value":"tiempo"
+        },
+	
+	]
+	
+}

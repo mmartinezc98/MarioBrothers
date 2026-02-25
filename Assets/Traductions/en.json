@@ -1,0 +1,54 @@
+{
+    "translations": 
+    [
+        {
+            "key": "_jugador",
+            "value": "1 player"
+        },
+        {
+            "key": "_opciones",
+            "value": "options"
+        },
+        {
+            "key": "_salir",
+            "value": "exit"
+        },
+        {
+            "key": "_dificultad",
+            "value": "difficulty"
+        },
+        {
+            "key": "_facil",
+            "value": "easy"
+        },
+        {
+            "key": "_normal",
+            "value": "normal"
+        },
+        {
+            "key": "_dificil",
+            "value": "hard"
+        },
+        {
+            "key": "_idioma",
+            "value": "language"
+        },
+        {
+            "key": "_esp",
+            "value": "spanish"
+        },
+        {
+            "key": "_ing",
+            "value": "english"
+        },
+        {
+            "key": "_mundo",
+            "value": "world"
+        },
+        {
+            "key": "_tiempo",
+            "value": "time"
+        }
+    ]
+}
+

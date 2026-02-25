@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class Main
 {
-    // public static Il18n Il18n;
+    public static I18n I18n;
     public static CustomEvents CustomEvents;
     public static Config Config;
     public static Player Player;
