@@ -1,3 +1,5 @@
+﻿using System.Diagnostics;
+
 public enum MarioStatus { small, big, fire }
 public class Player
 {
@@ -41,6 +43,21 @@ public class Player
 
     public void LivesChange(int CurrentLifes)
     {
+        Lives += CurrentLifes;
+
+
+        // Evitar valores negativos
+        if (Lives < 0)
+            Lives = 0;
+
+        // Avisar al UI
+        Main.CustomEvents.OnLivesChanged?.Invoke();
+
+        // Si llega a 0 → Game Over
+        if (Lives == 0)
+        {
+           // Main.CustomEvents.OnGameOver?.Invoke();
+        }
 
     }
 
@@ -51,6 +68,33 @@ public class Player
 
     }
 
-    
+    //Método para cambiar las vidas iniciales dependiendo de la dificultad
+    public void SetDifficulty(int difficulty)
+    {
+        // 0 = Fácil, 1 = Normal, 2 = Difícil
+        switch (difficulty)
+        {
+            case 0:
+                Lives = 5;
+                break;
+
+            case 1:
+                Lives = 3;
+                break;
+
+            case 2:
+                Lives = 1;
+                break;
+
+            default:
+                Lives = 3;
+                break;
+        }
+
+        // Actualizamos el UI al entrar al nivel
+        Main.CustomEvents.OnLivesChanged?.Invoke();
+    }
+
+
 
 }

@@ -15,6 +15,8 @@ public class CustomEvents
     public UnityEvent OnCoinsChange = new UnityEvent();
     public UnityEvent<MarioStatus> OnStatusChange = new UnityEvent<MarioStatus>(); //se le pasa el MarioStatus
     public UnityEvent OnPowerUpTaken = new UnityEvent();
+    public UnityEvent OnLivesChanged = new UnityEvent();
+
 
 
 }

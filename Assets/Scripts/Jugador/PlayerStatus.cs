@@ -43,6 +43,7 @@ public class PlayerStatus : MonoBehaviour
 
     public void Takedamage() //cambia los estados cuando mario recibe daño
     {
+        Main.Player.LivesChange(-1); //hacemos que mario pierda una vida y se lo pasamos al player
         switch (Main.Player.Status) { 
             case MarioStatus.small:
                 Death();
