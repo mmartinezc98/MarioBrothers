@@ -45,7 +45,6 @@ public class Player
     {
         Lives += CurrentLifes;
 
-
         // Evitar valores negativos
         if (Lives < 0)
             Lives = 0;
@@ -58,7 +57,6 @@ public class Player
         {
            Main.CustomEvents.OnGameOver?.Invoke();
         }
-
     }
 
     public void PointsChange(int CurrentPoints)
