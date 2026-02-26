@@ -5,12 +5,12 @@ using TMPro;
 
 public class TimeUI : MonoBehaviour
 {
-    private TMP_Text timeText;
+    private TextMeshProUGUI timeText;
     private float timeRemaining = 400f; // tiempo estilo Mario
 
     private void Awake()
     {
-        timeText = GetComponent<TMP_Text>();
+        timeText = GetComponent<TextMeshProUGUI>();
     }
 
     private void Update()

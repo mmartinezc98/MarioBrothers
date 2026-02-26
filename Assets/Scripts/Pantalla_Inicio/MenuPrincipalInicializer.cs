@@ -10,6 +10,7 @@ public class MenuPrincipalInicializer : MonoBehaviour
     private void Awake()
     {
         InputManager2.SwitchMap(InputManager2.InputSystemActions.UI); //inicializamos el input manager de los controles de la UI
+        Main.Player.SetDifficulty(1);
 
     }
     private void Start()
