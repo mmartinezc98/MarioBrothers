@@ -14,6 +14,7 @@ public static class Main
     public static void Start()
     {
         CustomEvents = new CustomEvents();
+        I18n = new I18n();
         Player = new Player();
 
         //establecemos el checkpoint inicial (enum de checpoint spawn)
