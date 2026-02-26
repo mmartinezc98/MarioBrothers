@@ -12,6 +12,7 @@ public class UpdateLives : MonoBehaviour
     private void Awake()
     {
         this.livesText = GetComponent<TextMeshProUGUI>();
+        Main.CustomEvents.OnLivesChanged.AddListener(UpdateLivesText);
     }
     void Start()
     {

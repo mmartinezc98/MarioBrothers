@@ -33,6 +33,7 @@ public class InicializerScene1 : MonoBehaviour //PARA INICIALIZAR TODO LO NECESA
 
     private IEnumerator BlackScreenTimer()
     {
+
        blackPanel.SetActive(true);
 
         yield return new WaitForSeconds(3f);

@@ -200,7 +200,6 @@ private void ApplyJumpPhysics()
     }
     #endregion
 
-
     #region MECANICA DEL COMBO DE PUNTOS
     public void AddStompCombo()
     {
