@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
         
 
         Main.CustomEvents.OnStatusChange?.AddListener(CalculateRaycastLenght);
+       
 
     }
 
@@ -89,7 +90,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         HandleMovement();
-        ClampToLeftCameraLimit();
+        //ClampToLeftCameraLimit();
     }
 
     #region MOVIMIENTO
@@ -173,12 +174,25 @@ private void ApplyJumpPhysics()
 
     public void CalculateRaycastLenght(MarioStatus status) //calculamos el tamaño del raycast dependiendo del boxcollider del player (para cuando sea grande/pequeño)
     {
-        _groundRayLength = (_boxCollider.size.y / 2) + 0.1f;
+
+        switch (status)
+        {
+            case MarioStatus.small:
+                _groundRayLength = .6f;
+                break;
+            case MarioStatus.big:
+                _groundRayLength = 1.3f;
+                break;
+            case MarioStatus.fire:
+                _groundRayLength = 1.3f;
+                break;
+        }
+       
     }
 
     #endregion
 
-    #region LIMITADOR DE MOVIMIENTO HACIA LA IZQ
+    /*#region LIMITADOR DE MOVIMIENTO HACIA LA IZQ
 
     private void ClampToLeftCameraLimit()
     {
@@ -198,7 +212,7 @@ private void ApplyJumpPhysics()
             _rb.velocity = new Vector2(Mathf.Max(_rb.velocity.x, 0f), _rb.velocity.y);
         }
     }
-    #endregion
+    #endregion*/
 
     #region MECANICA DEL COMBO DE PUNTOS
     public void AddStompCombo()

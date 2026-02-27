@@ -10,11 +10,12 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Transform spawnerPoint;
     [SerializeField] private Transform checkpoint1;
     [SerializeField] private Transform checkpoint2;
+    [SerializeField] private Transform exitLvl2;
     
     
 
 
-    private void Awake()
+    private void Awake ()
     {
         // Si no hay checkpoint guardado, usamos el punto de spawn
         if (Main.LastCheckPoint == default)
@@ -31,8 +32,10 @@ public class Spawner : MonoBehaviour
         {
             Instantiate(this._prefabMario, spawnPos, Quaternion.identity); //si no existe mario instancia el prefab     
 
+            Main.Player.ChangeStatus(Main.Player.Status);
+            
             //movemos la camara a la posicion de mario directamente manteniendo su posicion en z
-            Camera.main.transform.position = new Vector3(spawnPos.x, Camera.main.transform.position.y, Camera.main.transform.position.z); 
+            //Camera.main.transform.position = new Vector3(spawnPos.x, Camera.main.transform.position.y, Camera.main.transform.position.z); 
         }
         else
         {
@@ -51,7 +54,9 @@ public class Spawner : MonoBehaviour
             case CheckPointEnum.Checkpoint1:
                 return checkpoint1.position;
             case CheckPointEnum.Checkpoint2:
-                return checkpoint2.position;            
+                return checkpoint2.position;
+            case CheckPointEnum.Exitlvl2:
+                return exitLvl2.position;
             default:
                 return spawnerPoint.position;
         }

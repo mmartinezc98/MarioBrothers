@@ -17,21 +17,24 @@ public class CameraFollow : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Posición deseada en X según Mario
-        float desiredX = _target.position.x + _offsetX;
+        if (_target!= null) {
+            // Posición deseada en X según Mario
+            float desiredX = _target.position.x + _offsetX;
 
 
-        // Movimiento suave hacia la posición deseada
-        float newX = Mathf.MoveTowards(transform.position.x, desiredX, _smoothSpeed * Time.fixedDeltaTime);
+            // Movimiento suave hacia la posición deseada
+            float newX = Mathf.MoveTowards(transform.position.x, desiredX, _smoothSpeed * Time.fixedDeltaTime);
 
-        // Evitar retroceso: la cámara solo puede avanzar si newX > _maxCameraX
-        if (newX > _maxCameraX)
-        {
-            _maxCameraX = newX; // Actualiza el máximo alcanzado
+            // Evitar retroceso: la cámara solo puede avanzar si newX > _maxCameraX
+            if (newX > _maxCameraX)
+            {
+                _maxCameraX = newX; // Actualiza el máximo alcanzado
+            }
+
+            // La cámara se queda en el máximo alcanzado, nunca retrocede
+            transform.position = new Vector3(_maxCameraX, transform.position.y, transform.position.z);
         }
-
-        // La cámara se queda en el máximo alcanzado, nunca retrocede
-        transform.position = new Vector3(_maxCameraX, transform.position.y, transform.position.z);
+        
     }
 
 }

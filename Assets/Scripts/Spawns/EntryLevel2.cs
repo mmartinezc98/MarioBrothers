@@ -19,8 +19,6 @@ public class EntryLevel2 : MonoBehaviour
         //si mario entra en el trigger y pulsa hacia abajo cargamos el nivel
         if (marioCheck && downCheck.y <-0.1f)
         {
-
-
             Main.CustomEvents.OnLevelChanged.Invoke();
             SceneManager.LoadScene(SceneToLoad);
         }

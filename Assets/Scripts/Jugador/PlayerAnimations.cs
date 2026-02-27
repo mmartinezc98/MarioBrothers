@@ -13,14 +13,16 @@ public class PlayerAnimations : MonoBehaviour
 
     private void Awake()
     {
-        Main.CustomEvents.OnStatusChange.AddListener(SelectStatus);
-    }
-    private void Start()
-    {
         _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
         _sprite = GetComponent<SpriteRenderer>();
         _player = GetComponent<PlayerController>();
+
+        Main.CustomEvents.OnStatusChange.AddListener(SelectStatus);
+    }
+    private void Start()
+    {
+       
         
     }
 

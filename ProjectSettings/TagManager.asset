@@ -18,8 +18,8 @@ TagManager:
   - HeadCollider
   - PowerUps
   - DeathZone
-  - 
-  - 
+  - CameraLimit
+  - Player
   - 
   - 
   - 

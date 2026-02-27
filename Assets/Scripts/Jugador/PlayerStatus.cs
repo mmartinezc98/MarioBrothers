@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStatus : MonoBehaviour
 
@@ -9,7 +11,7 @@ public class PlayerStatus : MonoBehaviour
     private BoxCollider2D _bodyCollider; //collider del cuerpo
     private BoxCollider2D _headCollider; //headcollider
 
-    private void Start()
+    private void Awake()
     {
         playerController = GetComponent<PlayerController>();    //cogemos el playerController
         _bodyCollider = GetComponent<BoxCollider2D>();          //cogemos el box Colluder del cuerpo
@@ -17,6 +19,7 @@ public class PlayerStatus : MonoBehaviour
 
         Main.CustomEvents.OnDamageTaken.AddListener(Takedamage);
         Main.CustomEvents.OnPowerUpTaken.AddListener(TakePowerUp);
+        Main.CustomEvents.OnStatusChange.AddListener(AdjustColliders);
        
 
     } 
@@ -42,8 +45,8 @@ public class PlayerStatus : MonoBehaviour
     }
 
     public void Takedamage() //cambia los estados cuando mario recibe daño
-    {
-        Main.Player.LivesChange(-1); //hacemos que mario pierda una vida y se lo pasamos al player
+    {     
+
         switch (Main.Player.Status) { 
             case MarioStatus.small:
                 Death();
@@ -62,13 +65,22 @@ public class PlayerStatus : MonoBehaviour
 
     public void Death()
     {
+        //restamos una ida a mario
+        Main.Player.LivesChange(-1);
+
+        //invocamos el metodo de cambio de vidas
+        Main.CustomEvents.OnLivesChanged.Invoke();
+
+        Destroy(this.gameObject);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Debug.Log("Moruto");
     }
 
     public void SetSmall() //cambia el estado a pequeño
     {
         SetSmallColliders();
-        Main.Player.LivesChange(-1);
+        
         Main.Player.ChangeStatus(MarioStatus.small);        
 
         //Debug.Log("Mario es pequeño");
@@ -91,6 +103,27 @@ public class PlayerStatus : MonoBehaviour
         
         //Debug.Log("Mario es de fuego");
     }
+
+
+
+    private void AdjustColliders(MarioStatus status)
+    {
+        switch (status)
+        {
+            case MarioStatus.small:
+                SetSmallColliders();
+                break;
+
+            case MarioStatus.big:
+                SetBigColliders();
+                break;
+
+            case MarioStatus.fire:
+                
+                break;
+        } 
+    }
+
 
     private void SetSmallColliders()
     {

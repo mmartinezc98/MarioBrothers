@@ -9,10 +9,10 @@ public class InicializerScene1 : MonoBehaviour //PARA INICIALIZAR TODO LO NECESA
     
     private void Awake()
     {
-        InputManager2.SwitchMap(InputManager2.InputSystemActions.Player); //inicializamos el input manager de los controles de mario
 
+        InputManager2.InputSystemActions.Player.Disable();
         //aseguramos que el panel este desactivado
-        if(blackPanel != null)
+        if (blackPanel != null)
         {
             blackPanel.SetActive(false);
         }
@@ -39,5 +39,8 @@ public class InicializerScene1 : MonoBehaviour //PARA INICIALIZAR TODO LO NECESA
         yield return new WaitForSeconds(3f);
 
         blackPanel.SetActive(false);
+
+        InputManager2.SwitchMap(InputManager2.InputSystemActions.Player); //inicializamos el input manager de los controles de mario
+       
     }
 }
