@@ -11,6 +11,7 @@ public class PointsUI : MonoBehaviour
     {
         points= GetComponent<TextMeshProUGUI>();
         Main.CustomEvents.OnPointsChanged.AddListener(PointsText); //suscribimos al evento de cambiar puntos con el metodo que cambia el texto
+        PointsText();
     }
 
     

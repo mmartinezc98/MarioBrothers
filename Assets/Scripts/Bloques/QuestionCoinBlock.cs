@@ -44,6 +44,7 @@ public class QuestionBlockCoin : BlockBase
         if (_coinEffectPrefab != null)
         {
             Instantiate(_coinEffectPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
+            Main.Player.PointsChange(100);
         }
     }
 

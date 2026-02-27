@@ -17,6 +17,8 @@ public class CustomEvents
     public UnityEvent OnPowerUpTaken = new UnityEvent();
     public UnityEvent OnLivesChanged = new UnityEvent();
     public UnityEvent OnGameOver = new UnityEvent();
+    public UnityEvent OnLevelChanged = new UnityEvent();
+
 
 
 

@@ -38,7 +38,7 @@ public class Spawner : MonoBehaviour
         {
             mario.transform.position = spawnPos; //si existe crea a mario en la posicion que hemos elegido con el Spawner            
         }
-       
+        
     }
     
 

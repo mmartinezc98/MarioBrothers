@@ -8,7 +8,7 @@ public class Player
     public int Coins { get; private set; }
     public int Points { get; private set; }
 
-    public float TimeElapsed { get; private set; }   
+    public float TimeElapsed { get; private set; } = 400; //tiempo inicial   
 
     public MarioStatus Status { get; private set; } = MarioStatus.small; //inicializamos el estado en small (predeterminado)
 
@@ -63,6 +63,7 @@ public class Player
     {
         Points += CurrentPoints;
         Main.CustomEvents.OnPointsChanged?.Invoke(); //lanzamos el evento de cambio de puntos
+        
 
     }
 
@@ -94,6 +95,9 @@ public class Player
         Main.CustomEvents.OnLivesChanged?.Invoke();
     }
 
-
+    public void ChangeTime (float Time)
+    {
+        TimeElapsed = Time;    
+    }
 
 }
