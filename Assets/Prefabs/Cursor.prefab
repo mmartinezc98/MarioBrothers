@@ -89,4 +89,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursor: {fileID: 914113293603730778}
-  offset: {x: -360, y: 0}
+  offset: {x: -115, y: 0}

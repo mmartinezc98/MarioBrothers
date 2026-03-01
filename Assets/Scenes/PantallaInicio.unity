@@ -6079,10 +6079,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cursor
       objectReference: {fileID: 0}
-    - target: {fileID: 3077899556840911237, guid: 4e183bf36ee1e694a803c9470ba050e8, type: 3}
-      propertyPath: offset.x
-      value: -115
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

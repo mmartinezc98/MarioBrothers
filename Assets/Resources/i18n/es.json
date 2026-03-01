@@ -44,6 +44,9 @@
         },{
             "key": "_tiempo" , 
 			"value":"tiempo"
+        },{
+            "key": "_continuar" , 
+			"value":"continuar"
         }
 	
 	]
