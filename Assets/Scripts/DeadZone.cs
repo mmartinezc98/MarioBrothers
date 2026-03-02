@@ -18,7 +18,7 @@ public class DeadZone : MonoBehaviour //la usamos para destruir los enemigos cua
             Main.CustomEvents.OnLivesChanged.Invoke();
 
             Destroy(mario.gameObject);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            
         }
         else
         {

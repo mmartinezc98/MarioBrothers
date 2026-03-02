@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using UnityEngine.SceneManagement;
 
 public enum MarioStatus { small, big, fire }
 public class Player
@@ -45,18 +46,18 @@ public class Player
     {
         Lives += CurrentLifes;
 
-        // Evitar valores negativos
-        if (Lives < 0)
-            Lives = 0;
+        // Si llega a 0 → Game Over
+        if (Lives <= 0)
+        {
+            Main.CustomEvents.OnGameOver?.Invoke();
+            return;
+        }
 
         // Avisar al UI
         Main.CustomEvents.OnLivesChanged?.Invoke();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-        // Si llega a 0 → Game Over
-        if (Lives == 0)
-        {
-           Main.CustomEvents.OnGameOver?.Invoke();
-        }
+
     }
 
     public void PointsChange(int CurrentPoints)

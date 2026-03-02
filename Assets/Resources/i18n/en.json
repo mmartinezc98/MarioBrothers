@@ -51,6 +51,9 @@
         },{
             "key": "_continuar" , 
 			"value":"resume"
+        },{
+            "key": "_fin" , 
+			"value":"Game Over"
         }
 
 

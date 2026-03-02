@@ -47,6 +47,9 @@
         },{
             "key": "_continuar" , 
 			"value":"continuar"
+        },{
+            "key": "_fin" , 
+			"value":"Fin del Juego"
         }
 	
 	]

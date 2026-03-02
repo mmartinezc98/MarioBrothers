@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -44,7 +44,7 @@ public class PlayerStatus : MonoBehaviour
         }
     }
 
-    public void Takedamage() //cambia los estados cuando mario recibe da�o
+    public void Takedamage() //cambia los estados cuando mario recibe daño
     {     
 
         switch (Main.Player.Status) { 
@@ -68,22 +68,19 @@ public class PlayerStatus : MonoBehaviour
         //restamos una ida a mario
         Main.Player.LivesChange(-1);
 
-        //invocamos el metodo de cambio de vidas
-        Main.CustomEvents.OnLivesChanged.Invoke();
-
         Destroy(this.gameObject);
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+       
         Debug.Log("Moruto");
     }
 
-    public void SetSmall() //cambia el estado a peque�o
+    public void SetSmall() //cambia el estado a pequeño
     {
         SetSmallColliders();
         
         Main.Player.ChangeStatus(MarioStatus.small);        
 
-        //Debug.Log("Mario es peque�o");
+        //Debug.Log("Mario es pequeño");
     }
 
     public void SetBig() //cambia el estado a grande
@@ -129,7 +126,7 @@ public class PlayerStatus : MonoBehaviour
     {
         // Cambiar collider del cuerpo
         Vector2 size = _bodyCollider.size;
-        size.y = 1.046902f;                     // tama�o peque�o
+        size.y = 1.046902f;                     // tamaño pequeño
         _bodyCollider.size = size;
     }
 
@@ -137,7 +134,7 @@ public class PlayerStatus : MonoBehaviour
     {
         // Cambiar collider del cuerpo
         Vector2 size = _bodyCollider.size;
-        size.y = 2f;                     // tama�o grande
+        size.y = 2f;                     // tamaño grande
         _bodyCollider.size = size;
 
     }
