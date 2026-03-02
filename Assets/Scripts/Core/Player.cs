@@ -37,6 +37,10 @@ public class Player
     public void CoinChange(int Coinvalue)
     {
         Coins += Coinvalue;
+        if (Coins == 100)
+        {
+            LivesChange(+1);
+        }
 
         //lanzamos el evento de cambio de monedas
         Main.CustomEvents.OnCoinsChange?.Invoke();
