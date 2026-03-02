@@ -51,7 +51,10 @@
             "key": "_fin" , 
 			"value":"Fin del Juego"
         }
-	
+        ,{
+            "key": "_principal" , 
+			"value":"Menu Principal"
+        }
 	]
 	
 }

@@ -54,6 +54,9 @@
         },{
             "key": "_fin" , 
 			"value":"Game Over"
+        },{
+            "key": "_principal" , 
+			"value":"Main Menu"
         }
 
 
