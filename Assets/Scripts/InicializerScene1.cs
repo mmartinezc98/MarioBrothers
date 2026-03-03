@@ -20,7 +20,7 @@ public class InicializerScene1 : MonoBehaviour //PARA INICIALIZAR TODO LO NECESA
         {
             blackPanel.SetActive(false);
         }
-
+       
         Main.CustomEvents.OnLivesChanged.AddListener(ShowBlackScreen);
     }
 
@@ -37,15 +37,16 @@ public class InicializerScene1 : MonoBehaviour //PARA INICIALIZAR TODO LO NECESA
 
     private IEnumerator BlackScreenTimer()
     {
+        Main.AudManager.StopMusic();
 
-       blackPanel.SetActive(true);
+        blackPanel.SetActive(true);
 
         yield return new WaitForSeconds(3f);
 
         blackPanel.SetActive(false);
 
         InputManager2.SwitchMap(InputManager2.InputSystemActions.Player); //inicializamos el input manager de los controles de mario
-        Main.AudManager.PlaySound(Main.SoundLibrary.groundLevel);
-       
+        Main.AudManager.PlayMusic(Main.SoundLibrary.groundLevel);
+
     }
 }
