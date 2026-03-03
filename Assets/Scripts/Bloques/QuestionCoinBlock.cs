@@ -20,7 +20,9 @@ public class QuestionBlockCoin : BlockBase
         if (_coinCount <= 0)
             return;
 
-        SpawnCoinEffect();      
+        SpawnCoinEffect();
+
+        Main.AudManager.PlaySound(Main.SoundLibrary.coin);
 
 
         //restamos una al contado de las monedas en el bloque

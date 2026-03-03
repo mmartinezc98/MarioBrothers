@@ -3469,6 +3469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackPanel: {fileID: 986944685}
+  soundLibrary: {fileID: 11400000, guid: 45f56d5f0dfc4ed43a0277f0a90e75e0, type: 2}
 --- !u!4 &144335363
 Transform:
   m_ObjectHideFlags: 0

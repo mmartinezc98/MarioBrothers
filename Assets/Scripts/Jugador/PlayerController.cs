@@ -128,6 +128,7 @@ public class PlayerController : MonoBehaviour
 
         // Impulso inicial del salto
         _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+            Main.AudManager.PlaySound(Main.SoundLibrary.bigStatejump);
     }
 }
 
@@ -152,7 +153,9 @@ private void ApplyJumpPhysics()
         _rb.AddForce(
             Vector2.up * Physics2D.gravity.y * (_shortJumpMultiplier - 1) * _rb.mass,
             ForceMode2D.Force
+           
         );
+            
     }
 }
 

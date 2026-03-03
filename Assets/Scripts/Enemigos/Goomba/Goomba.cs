@@ -35,6 +35,7 @@ public class Goomba : Enemies
             rb.velocity = Vector2.zero;
             rb.isKinematic = true;
         }
+        Main.AudManager.PlaySound(Main.SoundLibrary.stomp);
 
         GetComponent<Collider2D>().enabled = false;
 

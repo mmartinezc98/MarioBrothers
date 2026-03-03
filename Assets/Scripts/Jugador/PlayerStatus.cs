@@ -124,6 +124,7 @@ public class PlayerStatus : MonoBehaviour
 
     private void SetSmallColliders()
     {
+        Main.AudManager.PlaySound(Main.SoundLibrary.pipeDown);
         // Cambiar collider del cuerpo
         Vector2 size = _bodyCollider.size;
         size.y = 1.046902f;                     // tamaño pequeño
@@ -132,6 +133,7 @@ public class PlayerStatus : MonoBehaviour
 
     private void SetBigColliders()
     {
+        Main.AudManager.PlaySound(Main.SoundLibrary.grow);
         // Cambiar collider del cuerpo
         Vector2 size = _bodyCollider.size;
         size.y = 2f;                     // tamaño grande

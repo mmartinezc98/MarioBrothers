@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameOverScreen : MonoBehaviour
 {
     [SerializeField]public GameObject gameOverUI;
-    public float delayBeforeReturn = 3f;
+    public float delayBeforeReturn = 6f;
     private void Awake()
     {
         Main.CustomEvents.OnGameOver?.AddListener(HandleGameOver);
@@ -20,6 +20,8 @@ public class GameOverScreen : MonoBehaviour
 
     IEnumerator GameOverRoutine()
     {
+        Main.AudManager.PlaySound(Main.SoundLibrary.gameOver);
+
         Time.timeScale = 0f;
         gameOverUI.SetActive(true);
 

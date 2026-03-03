@@ -6,9 +6,12 @@ using UnityEngine;
 public class InicializerScene1 : MonoBehaviour //PARA INICIALIZAR TODO LO NECESARIO EN LA ESCENA
 {
     [SerializeField] private GameObject blackPanel;
-    
+    [SerializeField] private SoundLibrary soundLibrary;
+
     private void Awake()
     {
+        // Asignar el SoundLibrary al Main
+        Main.SoundLibrary = soundLibrary;
 
         InputManager2.InputSystemActions.Player.Disable();
         //aseguramos que el panel este desactivado

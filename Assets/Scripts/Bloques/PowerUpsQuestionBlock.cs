@@ -33,8 +33,7 @@ public class PowerUpsQuestionBlock : BlockBase
     }
 
     public override void SpawnPowerUp()
-    {
-       
+    {      
 
         //posicion del power up al instanciarlo
         Vector3 pos = _spawnPoint != null
@@ -54,7 +53,8 @@ public class PowerUpsQuestionBlock : BlockBase
                 Instantiate(_firePlantPrefab, pos, Quaternion.identity);
                 break;
 
-        }       
+        }
+        Main.AudManager.PlaySound(Main.SoundLibrary.powerUp);
     }
 
     protected override void OnBecomeUsed()

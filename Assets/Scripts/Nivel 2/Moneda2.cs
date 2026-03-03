@@ -13,6 +13,7 @@ public class Moneda2 : MonoBehaviour
         // Asegúrate de que Mario tenga el tag "Player"
         if (collision.CompareTag("Player"))
         {
+            Main.AudManager.PlaySound(Main.SoundLibrary.coin);
             //sumamos los puntos al contador
             Main.Player.PointsChange(points);
             Debug.Log(points);

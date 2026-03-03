@@ -19,6 +19,7 @@ public class ExitLvl2 : MonoBehaviour
         //si mario entra en el trigger y pulsa hacia abajo cargamos el nivel
         if (marioCheck && rightCheck.x > 0.1f)
         {
+            Main.AudManager.PlaySound(Main.SoundLibrary.pipeDown);
             Main.LastCheckPoint = CheckPointEnum.Exitlvl2;
             Main.CustomEvents.OnLevelChanged.Invoke();
 

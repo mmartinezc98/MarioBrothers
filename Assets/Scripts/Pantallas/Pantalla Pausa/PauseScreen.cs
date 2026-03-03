@@ -39,6 +39,7 @@ public class PauseScreen : MonoBehaviour
 
     void Pause()
     {
+        Main.AudManager.PlaySound(Main.SoundLibrary.pause);
         // Cambiamos al mapa UI para navegar por botones
         InputManager2.SwitchMap(InputManager2.InputSystemActions.UI);
 
