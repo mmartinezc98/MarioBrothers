@@ -10,6 +10,7 @@ public class InicializerScene1 : MonoBehaviour //PARA INICIALIZAR TODO LO NECESA
 
     private void Awake()
     {
+        
         // Asignar el SoundLibrary al Main
         Main.SoundLibrary = soundLibrary;
 
@@ -44,6 +45,7 @@ public class InicializerScene1 : MonoBehaviour //PARA INICIALIZAR TODO LO NECESA
         blackPanel.SetActive(false);
 
         InputManager2.SwitchMap(InputManager2.InputSystemActions.Player); //inicializamos el input manager de los controles de mario
+        Main.AudManager.PlaySound(Main.SoundLibrary.groundLevel);
        
     }
 }

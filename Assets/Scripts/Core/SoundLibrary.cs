@@ -20,6 +20,9 @@ public class SoundLibrary : ScriptableObject
     public AudioClip coin;
     public AudioClip oneUp;
     public AudioClip pipeDown;
+    public AudioClip brickbump;
+    public AudioClip brickbreak;
+
 
     [Header("Enemies")]
     public AudioClip stomp;
@@ -28,6 +31,9 @@ public class SoundLibrary : ScriptableObject
     public AudioClip click;
     public AudioClip gameOver;
     public AudioClip pause;
+    public AudioClip groundLevel;
+    public AudioClip groundHurry;
+    
 
 }
 

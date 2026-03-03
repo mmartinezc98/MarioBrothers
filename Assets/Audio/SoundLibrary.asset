@@ -22,7 +22,11 @@ MonoBehaviour:
   coin: {fileID: 8300000, guid: 5cba0d4c771b96a4e87df4336a274393, type: 3}
   oneUp: {fileID: 0}
   pipeDown: {fileID: 8300000, guid: be0e84ee75972d440bdf213bdf72f30f, type: 3}
+  brickbump: {fileID: 8300000, guid: d1e3323eeb4fb164c893365f8b7f2147, type: 3}
+  brickbreak: {fileID: 8300000, guid: 9e9059bdcb16d444c9957f3292f6bc6e, type: 3}
   stomp: {fileID: 8300000, guid: c8250d7a813f1c24792445c64c2127ec, type: 3}
   click: {fileID: 0}
   gameOver: {fileID: 8300000, guid: 76a32e4d4ea3d6146abd826a017c6ae8, type: 3}
   pause: {fileID: 8300000, guid: d38e9f7d3ded23047a4ea4dfb8be29df, type: 3}
+  groundLevel: {fileID: 8300000, guid: e13ee79cf2c30da4fbf48ebe7f8f108c, type: 3}
+  groundHurry: {fileID: 8300000, guid: b1607db8c365ca14192688f25e0b1a5d, type: 3}

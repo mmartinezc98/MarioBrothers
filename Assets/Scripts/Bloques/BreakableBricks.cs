@@ -15,11 +15,12 @@ public class BreakableBricks : BlockBase
         
         if (status == MarioStatus.big || status == MarioStatus.fire) //si el estado es grando o de fuego se rompe el bloque
         {
+            Main.AudManager.PlaySound(Main.SoundLibrary.brickbreak);
             BreakBlock();
         }
         else //si es peequeño hacemos solo el bump
         {
-            
+            Main.AudManager.PlaySound(Main.SoundLibrary.brickbump);
             state = BlockState.Idle;
             OnBecomeUsed();
         }

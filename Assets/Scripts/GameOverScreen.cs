@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,6 +10,7 @@ public class GameOverScreen : MonoBehaviour
     private void Awake()
     {
         Main.CustomEvents.OnGameOver?.AddListener(HandleGameOver);
+       
     }
 
 
@@ -18,17 +19,20 @@ public class GameOverScreen : MonoBehaviour
         StartCoroutine(GameOverRoutine());
     }
 
+
+   
     IEnumerator GameOverRoutine()
     {
         Main.AudManager.PlaySound(Main.SoundLibrary.gameOver);
 
-        Time.timeScale = 0f;
-        gameOverUI.SetActive(true);
+         Time.timeScale = 0f;
+         gameOverUI.SetActive(true);
 
-        yield return new WaitForSecondsRealtime(delayBeforeReturn);
+         yield return new WaitForSecondsRealtime(delayBeforeReturn);
 
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("PantallaInicio");
+         Time.timeScale = 1f;
+         SceneManager.LoadScene("PantallaInicio");
+
     }
 
 }

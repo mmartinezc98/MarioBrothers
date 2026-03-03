@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.Processors;
 using UnityEngine.SceneManagement;
 
 public class PlayerStatus : MonoBehaviour
@@ -20,11 +21,10 @@ public class PlayerStatus : MonoBehaviour
         Main.CustomEvents.OnDamageTaken.AddListener(Takedamage);
         Main.CustomEvents.OnPowerUpTaken.AddListener(TakePowerUp);
         Main.CustomEvents.OnStatusChange.AddListener(AdjustColliders);
-       
 
-    } 
+    }
 
-    
+
 
     public void TakePowerUp() //cambia los estados dependiendo de los powerups que se recojan
     {
@@ -45,50 +45,55 @@ public class PlayerStatus : MonoBehaviour
     }
 
     public void Takedamage() //cambia los estados cuando mario recibe daño
-    {     
+    {
 
-        switch (Main.Player.Status) { 
+        switch (Main.Player.Status)
+        {
             case MarioStatus.small:
                 Death();
-            break;
+                break;
 
-        case MarioStatus.big:
-            SetSmall();
-            break;
+            case MarioStatus.big:
+                SetSmall();
+                break;
 
-        case MarioStatus.fire:
-             SetBig();
-            break;
+            case MarioStatus.fire:
+                SetBig();
+                break;
         }
 
     }
 
+
     public void Death()
     {
+
+
         //restamos una ida a mario
         Main.Player.LivesChange(-1);
 
         Destroy(this.gameObject);
 
-       
         Debug.Log("Moruto");
     }
 
     public void SetSmall() //cambia el estado a pequeño
     {
         SetSmallColliders();
-        
-        Main.Player.ChangeStatus(MarioStatus.small);        
 
+        Main.Player.ChangeStatus(MarioStatus.small);
+        Main.CustomEvents.OnPlayerDead.Invoke();
         //Debug.Log("Mario es pequeño");
     }
 
     public void SetBig() //cambia el estado a grande
     {
+        Main.AudManager.PlaySound(Main.SoundLibrary.pipeDown);
         SetBigColliders();
         Main.Player.ChangeStatus(MarioStatus.big);
-        
-        
+        Main.AudManager.PlaySound(Main.SoundLibrary.grow);
+
+
         //Debug.Log("Mario es grande");
     }
 
@@ -96,8 +101,9 @@ public class PlayerStatus : MonoBehaviour
     {
         SetBigColliders();
         Main.Player.ChangeStatus(MarioStatus.fire);
-        
-        
+        Main.AudManager.PlaySound(Main.SoundLibrary.grow);
+
+
         //Debug.Log("Mario es de fuego");
     }
 
@@ -116,15 +122,15 @@ public class PlayerStatus : MonoBehaviour
                 break;
 
             case MarioStatus.fire:
-                
+
                 break;
-        } 
+        }
     }
 
 
     private void SetSmallColliders()
     {
-        Main.AudManager.PlaySound(Main.SoundLibrary.pipeDown);
+
         // Cambiar collider del cuerpo
         Vector2 size = _bodyCollider.size;
         size.y = 1.046902f;                     // tamaño pequeño
@@ -133,7 +139,7 @@ public class PlayerStatus : MonoBehaviour
 
     private void SetBigColliders()
     {
-        Main.AudManager.PlaySound(Main.SoundLibrary.grow);
+
         // Cambiar collider del cuerpo
         Vector2 size = _bodyCollider.size;
         size.y = 2f;                     // tamaño grande
