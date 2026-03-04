@@ -43,7 +43,7 @@ public class PlayerShootFireBall : MonoBehaviour
 
     private void Shoot()
     {
-        int direction = transform.localScale.x > 0 ? 1 : -1;
+        int direction =(int) Mathf.Sign(transform.lossyScale.x) > 0 ? 1 : -1; //detecta la direccion real del padre
 
         GameObject fb = Instantiate(fireballPrefab, firePoint.position, Quaternion.identity);
         fb.GetComponent<Fireball>().Launch(direction);

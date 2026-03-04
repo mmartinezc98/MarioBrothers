@@ -20,12 +20,6 @@ public class PlayerAnimations : MonoBehaviour
 
         Main.CustomEvents.OnStatusChange.AddListener(SelectStatus);
     }
-    private void Start()
-    {
-       
-        
-    }
-
     
     private void Update()
     {
@@ -34,9 +28,11 @@ public class PlayerAnimations : MonoBehaviour
 
         // Flip del sprite según la dirección del movimiento
         if (inputX > 0)
-            _sprite.flipX = false;   // mirando a la derecha
+            transform.localScale = new Vector3(1, 1, 1);
+        //_sprite.flipX = false;   // mirando a la derecha
         else if (inputX < 0)
-            _sprite.flipX = true;    // mirando a la izquierda
+            transform.localScale = new Vector3(-1, 1, 1);
+        // _sprite.flipX = true;    // mirando a la izquierda
 
 
 
