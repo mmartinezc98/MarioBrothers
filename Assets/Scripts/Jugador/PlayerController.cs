@@ -205,6 +205,12 @@ private void ApplyJumpPhysics()
         Main.Player.PointsChange(points);
     }
 
+    // devuelve los puntos del combo actual para saber cuántos puntos mostrar en el popup
+    public int GetLastComboPoints()
+    {
+        return GetComboPoints(stompCombo);
+    }
+s
     public void ResetStompCombo()
     {
         stompCombo = 0;

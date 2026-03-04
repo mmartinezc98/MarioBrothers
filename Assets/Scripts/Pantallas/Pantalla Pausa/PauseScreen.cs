@@ -8,45 +8,50 @@ public class PauseScreen : MonoBehaviour
     [SerializeField] public GameObject firstSelectedButton;
 
     private bool isPaused = false;
+    private Vector2 _savedVelocity; // Guardamos la velocidad antes de pausar
+    private Rigidbody2D _playerRb;
 
     private void Awake()
     {
-        // Activamos el mapa Player al inicio
         InputManager2.SwitchMap(InputManager2.InputSystemActions.Player);
-
-        // Nos suscribimos a la acción de pausa del mapa Player
         InputManager2.InputSystemActions.Player.Pause.performed += OnPause;
         InputManager2.InputSystemActions.UI.Atras.performed += OnResume;
     }
 
     private void OnDestroy()
     {
-        // Importante: desuscribir para evitar errores
         InputManager2.InputSystemActions.Player.Pause.performed -= OnPause;
     }
 
     public void OnPause(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-        
-
-
-        else Pause();
+        Pause();
     }
-    public void OnResume(InputAction.CallbackContext context) {
+
+    public void OnResume(InputAction.CallbackContext context)
+    {
         if (isPaused) Resume();
     }
 
     void Pause()
     {
+        // Buscamos el Rigidbody2D de Mario y guardamos su velocidad
+        PlayerController mario = FindAnyObjectByType<PlayerController>();
+        if (mario != null)
+        {
+            _playerRb = mario.GetComponent<Rigidbody2D>();
+            _savedVelocity = _playerRb.velocity;
+            _playerRb.velocity = Vector2.zero;
+            _playerRb.isKinematic = true; // Evita que la física actúe mientras está pausado
+        }
+
         Main.AudManager.PlaySound(Main.SoundLibrary.pause);
-        // Cambiamos al mapa UI para navegar por botones
         InputManager2.SwitchMap(InputManager2.InputSystemActions.UI);
 
         isPaused = true;
         Time.timeScale = 0f;
         pauseMenuUI.SetActive(true);
-       
 
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(firstSelectedButton);
@@ -54,11 +59,17 @@ public class PauseScreen : MonoBehaviour
 
     public void Resume()
     {
+        // Restauramos la física de Mario
+        if (_playerRb != null)
+        {
+            _playerRb.isKinematic = false;
+            _playerRb.velocity = _savedVelocity;
+        }
+
         isPaused = false;
         Time.timeScale = 1f;
         pauseMenuUI.SetActive(false);
 
-        // Volvemos al mapa Player
         InputManager2.SwitchMap(InputManager2.InputSystemActions.Player);
     }
 }

@@ -46,7 +46,12 @@ public class QuestionBlockCoin : BlockBase
         if (_coinEffectPrefab != null)
         {
             Instantiate(_coinEffectPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
-            Main.Player.PointsChange(100);
+
+            // Sumamos los puntos al jugador
+            Main.Player.PointsChange(200);
+
+            // Mostramos el popup de 100 puntos encima del bloque
+            PointspopupSpawner.Spawn(200, transform.position);
         }
     }
 

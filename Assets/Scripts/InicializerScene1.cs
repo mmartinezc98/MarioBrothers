@@ -8,11 +8,17 @@ public class InicializerScene1 : MonoBehaviour //PARA INICIALIZAR TODO LO NECESA
     [SerializeField] private GameObject blackPanel;
     [SerializeField] private SoundLibrary soundLibrary;
 
+    // referencia al  popup de puntos
+    [SerializeField] private GameObject pointsPopupPrefab;
+
     private void Awake()
     {
         
         // Asignar el SoundLibrary al Main
         Main.SoundLibrary = soundLibrary;
+
+        // Inicializamos el spawner de popups con el prefab asignado en el Inspector
+        PointspopupSpawner.Init(pointsPopupPrefab);
 
         InputManager2.InputSystemActions.Player.Disable();
         //aseguramos que el panel este desactivado

@@ -21,6 +21,8 @@ public class PlayerStatus : MonoBehaviour
         Main.CustomEvents.OnDamageTaken.AddListener(Takedamage);
         Main.CustomEvents.OnPowerUpTaken.AddListener(TakePowerUp);
         Main.CustomEvents.OnStatusChange.AddListener(AdjustColliders);
+        // Ajusta los colliders al estado actual al instanciarse
+        AdjustColliders(Main.Player.Status);
 
     }
 
@@ -32,14 +34,20 @@ public class PlayerStatus : MonoBehaviour
         {
             case MarioStatus.small:
                 SetBig();
+                Main.Player.PointsChange(1000);
+                // Mostramos popup de puntos al recoger el champiñón rojo
+                PointspopupSpawner.Spawn(1000, transform.position);
                 break;
 
             case MarioStatus.big:
                 SetFire();
+                Main.Player.PointsChange(1000);
+                // Mostramos popup de puntos al recoger la planta de fuego
+                PointspopupSpawner.Spawn(1000, transform.position);
                 break;
 
             case MarioStatus.fire:
-                Debug.Log("wow");
+                // Ya tiene el estado máximo, no se muestran puntos
                 break;
         }
     }

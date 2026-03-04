@@ -18,16 +18,23 @@ public class Goomba : Enemies
 
     public override void OnStomped()
     {
-        FindAnyObjectByType<PlayerController>().AddStompCombo(); //cuando es pisado inicia el metodo del combo de puntos
+        PlayerController player = FindAnyObjectByType<PlayerController>();
 
-        //desactivamos los colliders del goomba y de la cabeza para que no colisione con mario otra vez
-       _circleCollider.enabled = false;
-       _headCollider.enabled = false;   
-       
-        // 1. Avisar al script de animaciones
+        // Incrementamos el combo y obtenemos los puntos antes de que se reseteen
+        player.AddStompCombo();
+        int points = player.GetLastComboPoints();
+
+        // Mostramos el popup de puntos encima del goomba
+        PointspopupSpawner.Spawn(points, transform.position);
+
+        // Desactivamos los colliders para que no vuelva a colisionar con Mario
+        _circleCollider.enabled = false;
+        _headCollider.enabled = false;
+
+        // Avisamos al script de animaciones para reproducir la animación de muerte
         if (_goombaAnim != null) _goombaAnim.PlayStomped();
 
-        // 2. Lógica física: parar y desactivar
+        // Paramos el movimiento y desactivamos la física
         _movementDirection = 0;
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null)
@@ -35,11 +42,11 @@ public class Goomba : Enemies
             rb.velocity = Vector2.zero;
             rb.isKinematic = true;
         }
-        Main.AudManager.PlaySound(Main.SoundLibrary.stomp);
 
+        Main.AudManager.PlaySound(Main.SoundLibrary.stomp);
         GetComponent<Collider2D>().enabled = false;
 
-        // destruye el objeto despues del tiempo de espera
+        // Destruimos el objeto tras el tiempo de espera configurado
         Destroy(gameObject, _deadStanding);
     }
 

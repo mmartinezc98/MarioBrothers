@@ -8,6 +8,9 @@ public class HeadHit : MonoBehaviour
     {
         _headCollider = GetComponent<BoxCollider2D>();
         Main.CustomEvents.OnStatusChange.AddListener(ChangeHeadCollider);
+
+        // Ajusta el collider al estado actual al instanciarse
+        ChangeHeadCollider(Main.Player.Status);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
