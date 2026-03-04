@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SoundLibrary
   m_EditorClassIdentifier: 
   bigStatejump: {fileID: 8300000, guid: ac2b27c6a89eafd4d980bf9c01a8fd87, type: 3}
+  fireball: {fileID: 8300000, guid: 13da46e189a837b4a90e2936c4c2b300, type: 3}
   powerUp: {fileID: 8300000, guid: 2f82806a5a1803a4fb2fdc1913c8047e, type: 3}
   death: {fileID: 8300000, guid: 73b559097cfa6e3459f64288c7c09f8a, type: 3}
   grow: {fileID: 8300000, guid: d6ca9424341767543b99b053bce2f03e, type: 3}

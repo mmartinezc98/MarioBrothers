@@ -8,7 +8,7 @@ public class SoundLibrary : ScriptableObject
     [Header("Player")]
    // public AudioClip smallStatejump;
     public AudioClip bigStatejump;
-    //public AudioClip fireball;
+    public AudioClip fireball;
     public AudioClip powerUp;
    // public AudioClip damage;
     public AudioClip death;

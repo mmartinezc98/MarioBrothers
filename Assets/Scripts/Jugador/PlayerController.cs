@@ -99,6 +99,7 @@ public class PlayerController : MonoBehaviour
     {
         _movementDirection = InputManager2.InputSystemActions.Player.Movement.ReadValue<Vector2>();
 
+
         float targetSpeed = _movementDirection.x * (_isRunning ? _runSpeed : _moveSpeed);
         float speedDif = targetSpeed - _rb.velocity.x;
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? _acceleration : _deceleration;
@@ -194,28 +195,6 @@ private void ApplyJumpPhysics()
     }
 
     #endregion
-
-    /*#region LIMITADOR DE MOVIMIENTO HACIA LA IZQ
-
-    private void ClampToLeftCameraLimit()
-    {
-        Camera cam = Camera.main;
-
-        // Borde izquierdo visible de la cámara
-        float leftLimit = cam.transform.position.x - (cam.orthographicSize * cam.aspect);
-
-        Vector3 pos = transform.position;
-
-        if (pos.x < leftLimit)
-        {
-            pos.x = leftLimit;
-            transform.position = pos;
-
-            // Evita que el rigidbody siga empujando hacia atrás
-            _rb.velocity = new Vector2(Mathf.Max(_rb.velocity.x, 0f), _rb.velocity.y);
-        }
-    }
-    #endregion*/
 
     #region MECANICA DEL COMBO DE PUNTOS
     public void AddStompCombo()

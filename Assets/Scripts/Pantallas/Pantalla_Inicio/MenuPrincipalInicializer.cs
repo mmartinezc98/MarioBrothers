@@ -15,6 +15,7 @@ public class MenuPrincipalInicializer : MonoBehaviour
     }
     private void Start()
     {
+        Main.AudManager.StopMusic();
         EventSystem.current.SetSelectedGameObject(firstSelectedButton);
 
     }

@@ -76,9 +76,5 @@ public class Enemies : MonoBehaviour
         {
             OnSideHit();
         }
-
-        
-
-
     }
 }
