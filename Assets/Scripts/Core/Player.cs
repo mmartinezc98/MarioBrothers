@@ -5,11 +5,11 @@ public enum MarioStatus { small, big, fire }
 public class Player
 {
     //A ESTO SE PUEDE ACCEDER DESDE CUALQUIER LADO A TRAVES DEL MAIN.PLAYER, PERO NO CAMBIARLAS, NECESITAMOS LOS METODOS DE ABAJO
-    public int Lives { get; private set; } 
+    public int Lives { get; private set; } = 3;
     public int Coins { get; private set; }
     public int Points { get; private set; }
 
-    public float TimeElapsed { get; private set; } = 110; //tiempo inicial   
+    public float TimeElapsed { get; private set; } = 400; //tiempo inicial   
 
     public MarioStatus Status { get; private set; } = MarioStatus.small; //inicializamos el estado en small (predeterminado)
 
@@ -39,16 +39,16 @@ public class Player
         Coins += Coinvalue;
         if (Coins == 100)
         {
-            LivesChange(+1);
+            AddLifes(1);
         }
 
         //lanzamos el evento de cambio de monedas
         Main.CustomEvents.OnCoinsChange?.Invoke();
     }
 
-    public void LivesChange(int CurrentLifes)
+    public void RestLifes(int CurrentLifes)
     {
-        Lives += CurrentLifes;
+        Lives -= CurrentLifes;
 
         // Si llega a 0 → Game Over
         if (Lives <= 0)
@@ -62,6 +62,12 @@ public class Player
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
 
+    }
+    public void AddLifes(int CurrentLifes)
+    {
+
+        Lives += CurrentLifes;
+        Main.CustomEvents.OnLivesChanged?.Invoke();
     }
 
     public void PointsChange(int CurrentPoints)

@@ -12,7 +12,7 @@ public class DeadZone : MonoBehaviour //la usamos para destruir los enemigos cua
         if (mario != null) //si es mario destruimos el objeto
         {
             //restamos una ida a mario
-            Main.Player.LivesChange(-1);
+            Main.Player.RestLifes(1);
 
             //invocamos el metodo de cambio de vidas
             Main.CustomEvents.OnLivesChanged.Invoke();

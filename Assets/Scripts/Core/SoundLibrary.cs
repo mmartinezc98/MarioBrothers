@@ -6,11 +6,11 @@ using UnityEngine;
 public class SoundLibrary : ScriptableObject
 {
     [Header("Player")]
-    public AudioClip smallStatejump;
+   // public AudioClip smallStatejump;
     public AudioClip bigStatejump;
-    public AudioClip fireball;
+    //public AudioClip fireball;
     public AudioClip powerUp;
-    public AudioClip damage;
+   // public AudioClip damage;
     public AudioClip death;
     public AudioClip grow;
     
@@ -28,11 +28,13 @@ public class SoundLibrary : ScriptableObject
     public AudioClip stomp;
 
     [Header("UI")]
-    public AudioClip click;
+    //public AudioClip click;
     public AudioClip gameOver;
     public AudioClip pause;
     public AudioClip groundLevel;
     public AudioClip groundHurry;
+    public AudioClip underground;
+    public AudioClip stageClear;
     
 
 }

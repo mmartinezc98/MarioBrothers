@@ -21,7 +21,7 @@ public class InicializerScene1 : MonoBehaviour //PARA INICIALIZAR TODO LO NECESA
             blackPanel.SetActive(false);
         }
        
-        Main.CustomEvents.OnLivesChanged.AddListener(ShowBlackScreen);
+        //Main.CustomEvents.OnLivesChanged.AddListener(ShowBlackScreen);
     }
 
     private void Start()

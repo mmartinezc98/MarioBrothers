@@ -57,6 +57,12 @@
         },{
             "key": "_principal" , 
 			"value":"Main Menu"
+        },{
+            "key": "_puntos" , 
+			"value":"HighScore"
+        },{
+            "key": "_fecha" , 
+			"value":"Date:"
         }
 
 

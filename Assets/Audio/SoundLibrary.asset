@@ -12,21 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e0a2e68d381e24286e122466e62250, type: 3}
   m_Name: SoundLibrary
   m_EditorClassIdentifier: 
-  smallStatejump: {fileID: 8300000, guid: 20090e8e50e12fa4faa7517f4fe42e1a, type: 3}
   bigStatejump: {fileID: 8300000, guid: ac2b27c6a89eafd4d980bf9c01a8fd87, type: 3}
-  fireball: {fileID: 0}
   powerUp: {fileID: 8300000, guid: 2f82806a5a1803a4fb2fdc1913c8047e, type: 3}
-  damage: {fileID: 0}
   death: {fileID: 8300000, guid: 73b559097cfa6e3459f64288c7c09f8a, type: 3}
   grow: {fileID: 8300000, guid: d6ca9424341767543b99b053bce2f03e, type: 3}
   coin: {fileID: 8300000, guid: 5cba0d4c771b96a4e87df4336a274393, type: 3}
-  oneUp: {fileID: 0}
+  oneUp: {fileID: 8300000, guid: 0937d5e3437577943a585f9fe41001a4, type: 3}
   pipeDown: {fileID: 8300000, guid: be0e84ee75972d440bdf213bdf72f30f, type: 3}
   brickbump: {fileID: 8300000, guid: d1e3323eeb4fb164c893365f8b7f2147, type: 3}
   brickbreak: {fileID: 8300000, guid: 9e9059bdcb16d444c9957f3292f6bc6e, type: 3}
   stomp: {fileID: 8300000, guid: c8250d7a813f1c24792445c64c2127ec, type: 3}
-  click: {fileID: 0}
   gameOver: {fileID: 8300000, guid: 76a32e4d4ea3d6146abd826a017c6ae8, type: 3}
   pause: {fileID: 8300000, guid: d38e9f7d3ded23047a4ea4dfb8be29df, type: 3}
   groundLevel: {fileID: 8300000, guid: e13ee79cf2c30da4fbf48ebe7f8f108c, type: 3}
   groundHurry: {fileID: 8300000, guid: b1607db8c365ca14192688f25e0b1a5d, type: 3}
+  underground: {fileID: 8300000, guid: 1592ed0d393919e4280c08cce27bbcfe, type: 3}
+  stageClear: {fileID: 8300000, guid: c41d787c5cef79843b091c97c922ce84, type: 3}

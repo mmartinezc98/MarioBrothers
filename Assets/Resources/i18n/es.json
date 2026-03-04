@@ -50,10 +50,15 @@
         },{
             "key": "_fin" , 
 			"value":"Fin del Juego"
-        }
-        ,{
+        },{
             "key": "_principal" , 
 			"value":"Menu Principal"
+        },{
+            "key": "_puntos" , 
+			"value":"Mejor Puntuacion:"
+        },{
+            "key": "_fecha" , 
+			"value":"Fecha:"
         }
 	]
 	

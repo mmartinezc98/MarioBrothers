@@ -13,12 +13,7 @@ public class InicializerLvl2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+       Main.AudManager.PlayMusic(Main.SoundLibrary.underground); 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

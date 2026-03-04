@@ -54,10 +54,12 @@ public class PlayerStatus : MonoBehaviour
                 break;
 
             case MarioStatus.big:
+                Main.AudManager.PlaySound(Main.SoundLibrary.pipeDown);
                 SetSmall();
                 break;
 
             case MarioStatus.fire:
+                Main.AudManager.PlaySound(Main.SoundLibrary.pipeDown);
                 SetBig();
                 break;
         }
@@ -67,10 +69,8 @@ public class PlayerStatus : MonoBehaviour
 
     public void Death()
     {
-
-
         //restamos una ida a mario
-        Main.Player.LivesChange(-1);
+        Main.Player.RestLifes(1);
 
         Destroy(this.gameObject);
 
@@ -130,7 +130,7 @@ public class PlayerStatus : MonoBehaviour
 
     private void SetSmallColliders()
     {
-        Main.AudManager.PlaySound(Main.SoundLibrary.pipeDown);
+       
         // Cambiar collider del cuerpo
         Vector2 size = _bodyCollider.size;
         size.y = 1.046902f;                     // tamaño pequeño
